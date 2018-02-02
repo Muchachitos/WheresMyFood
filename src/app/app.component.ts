@@ -8,7 +8,6 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 
 export class AppComponent implements OnInit {
-  console.log('hello');
   constructor(private router: Router) { }
 
   ngOnInit(): void {
