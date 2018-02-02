@@ -8,14 +8,15 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 
 export class AppComponent implements OnInit {
+  console.log('hello');
   constructor(private router: Router) { }
-  
+
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
-      if(!(event instanceof NavigationEnd)){
+      if (!(event instanceof NavigationEnd)) {
         return;
       }
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     });
   }
 }
