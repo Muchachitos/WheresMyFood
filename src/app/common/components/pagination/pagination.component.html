@@ -1,0 +1,9 @@
+<ul class="pagination">
+    <li><a href="#" scrollStop (click)="previousPage($event)">&laquo;</a></li>
+</ul>
+<ul class="pagination" *ngFor="let index of pagesIndexes;">
+    <li [ngClass]="{'active': index == currentPage}"><a href="#" scrollStop (click)="goToPage(index)">{{ index }}</a></li>
+</ul>  
+<ul class="pagination">
+    <li><a href="#" scrollStop (click)="nextPage($event)">&raquo;</a></li>
+</ul> 

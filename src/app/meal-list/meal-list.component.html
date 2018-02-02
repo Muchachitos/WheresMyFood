@@ -1,0 +1,9 @@
+
+<div class="row">
+    <div class="col-sm-3" *ngFor="let meal of list">
+        <app-meal [canMakeOrder]="canMakeOrder" [item]="meal"></app-meal>
+    </div>
+</div>
+<div class="align-center">
+    <app-pagination (pageChange)="onPageChange($event)" [totalNumberOfPages]="meta.totalNumberOfPages" [numberOfPagesToShow]="meta.numberOfPagesToShow"></app-pagination>
+</div>

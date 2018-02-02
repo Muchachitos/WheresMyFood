@@ -1,0 +1,16 @@
+.main-margine{
+   margin-top: 5%;
+}
+
+.container-height{
+    min-height:832px;
+}
+
+.footer {
+    padding-top:1.15%; 
+    text-transform: uppercase;
+    color: rgb(230, 230, 230);
+    text-align: center;
+    background-color: #1c8675;
+    height: 100%;
+}

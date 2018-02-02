@@ -1,0 +1,48 @@
+.pointer {
+    cursor: pointer;
+}
+
+.zoom {
+    transition: transform .4s;
+}
+
+.zoom:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.number{
+    margin-left:0.3em;
+    color: black;
+    font-size: 0.8em;
+}
+
+.heart-ordered{
+    transition: background-color .3s;    
+    color: rgb(250, 32, 32);
+}
+
+.button-panel{
+    width:100%; min-height: 2.2em;
+}
+
+.bottom-display{
+    display:inline;
+}
+
+.item-decription{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.heart-section{
+    float:right;
+    font-size:1.2em;
+    padding-top:6%;
+}
+
+.item-name{
+    padding:2%;
+    border-bottom:1px solid rgba(170, 170, 170, 0.493);
+}
