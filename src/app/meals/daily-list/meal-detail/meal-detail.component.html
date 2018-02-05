@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <img class="img-responsive pointer" [src]="item.Image" alt="{{ item.Name }}" />
+      <div class="caption">
+        <h4 class="item-name">
+          <b>{{ item.Name }}</b>
+        </h4>
+        <p class="item-decription">{{ item.Description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Last order</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of item.OrderList">
+          <td>{{order.Firstname}}</td>
+          <td>{{order.Lastname}}</td>
+          <td>{{order.LastTimeOrdered | date:'dd.MM.yyyy'}}</td>
+          <td>
+            <button *ngIf="!order.HasOrdered" class="btn btn-success btn-circle">
+              <i class="glyphicon glyphicon-ok"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<ng-template #cancelOrder>
+  <button class="btn btn-circle btn-danger" *ngIf="item.IsOrdered" (click)="cancel(item)">
+    <i class="glyphicon glyphicon-remove"></i>
+  </button>
+</ng-template>

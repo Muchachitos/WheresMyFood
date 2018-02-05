@@ -6,13 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { MealListComponent } from './meal-list/meal-list.component';
-import { MealComponent } from './meal-list/meal/meal.component';
-import { MealDetailComponent } from './meal-list/meal-detail/meal-detail.component';
+import { DailyMealListComponent } from './meals/daily-list/daily-meal-list.component';
+import { MealComponent } from './meals/daily-list/meal/meal.component';
+import { MealDetailComponent } from './meals/daily-list/meal-detail/meal-detail.component';
 import { OrdersComponent } from './orders/orders.component';
 import { AuthComponent } from './auth/auth.component';
 
-import { NotFoundComponent } from './common/components/page-not-found.component';
+import { NotFoundComponent } from './common/components/404/page-not-found.component';
 import { AppPaginationComponent } from './common/components/pagination/pagination.component';
 
 import { ConditionalClassDirective } from './common/directives/conditional-class.directive';
@@ -20,7 +20,8 @@ import { ScrollStopDirective } from './common/directives/stop-scroll.directive';
 
 import { LoggingService } from './common/services/logging.service';
 import { AuthService } from './auth/auth.service';
-import { MealListService } from './meal-list/meal-list.service';
+import { DailyMealListService } from './meals/daily-list/daily-meal-list.service';
+import { MealDetailResolverService } from './meals/daily-list/meal-detail/meal-detail-resolver.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 
 
@@ -28,7 +29,7 @@ import { AuthGuardService } from './auth/auth-guard.service';
   declarations: [
     AppComponent,
     HeaderComponent,
-    MealListComponent,
+    DailyMealListComponent,
     MealComponent,
     MealDetailComponent,
     OrdersComponent,
@@ -49,7 +50,8 @@ import { AuthGuardService } from './auth/auth-guard.service';
     LoggingService,
     AuthService,
     AuthGuardService,
-    MealListService
+    DailyMealListService,
+    MealDetailResolverService
   ],
   bootstrap: [AppComponent]
 })

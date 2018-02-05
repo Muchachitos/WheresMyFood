@@ -1,6 +1,6 @@
 import { Component, Input, EventEmitter } from "@angular/core";
 import { MealModel } from "./meal.model";
-import { MealListService } from "../meal-list.service";
+import { DailyMealListService } from "../daily-meal-list.service";
 
 @Component({
     selector: 'app-meal',
@@ -14,7 +14,7 @@ export class MealComponent {
 
     private count: number = 0;
 
-    constructor(private mealsService: MealListService) { }
+    constructor(private mealsService: DailyMealListService) { }
 
     order(item: MealModel) {
         this.count += 1;

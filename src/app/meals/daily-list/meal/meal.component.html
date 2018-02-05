@@ -1,0 +1,25 @@
+<div class="thumbnail zoom" [conditionalClass]="{ condition: itemIsOrdered, apply: 'highlighted-thumbnail'}">
+  <img class="img-responsive pointer" [routerLink]="['/meal-list', item.Id ]" [src]="item.Image" alt="{{item.Name }}" />
+  <div class="caption">
+    <h4 class="item-name">{{ item.Name }}</h4>
+    <p class="item-decription">{{ item.Description }}</p>
+    <div class="bottom-display">
+      <div class="button-panel">
+        <button *ngIf="canMakeOrder; else cancelOrder" class="btn btn-circle" (click)="order(item)" [disabled]="!canMakeOrder" [conditionalClass]="{ condition: canMakeOrder, apply: 'btn-success'}">
+          <i class="glyphicon glyphicon-ok"></i>
+        </button>
+        <div class="heart-section">
+          <span class="glyphicon glyphicon-heart" [conditionalClass]="{ condition: item.IsOrdered, apply: 'heart-ordered'}">
+          </span>
+          <span class="number">{{ item.NumberOfOrders }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #cancelOrder>
+  <button class="btn btn-circle btn-danger" *ngIf="item.IsOrdered" (click)="cancel(item)">
+    <i class="glyphicon glyphicon-remove"></i>
+  </button>
+</ng-template>

@@ -1,8 +1,8 @@
 import { MealModel } from "./meal/meal.model";
 import { EventEmitter } from "@angular/core";
-import { MealsListMetaModel } from "./meal-list-meta.model";
+import { MealsListMetaModel } from "./daily-meal-list-meta.model";
 
-export class MealListService {
+export class DailyMealListService {
     mealListChanged = new EventEmitter<MealModel[]>();
     private currentCopy: MealModel[] = [];
     private mealMeta: MealsListMetaModel;
