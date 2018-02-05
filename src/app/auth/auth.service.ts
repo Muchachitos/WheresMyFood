@@ -2,10 +2,10 @@ import { LoggingService } from "../common/services/logging.service";
 import { Injectable } from "@angular/core";
 
 @Injectable()
-export class AuthService{
+export class AuthService {
     constructor(private loggingService: LoggingService) { }
 
-    private loggedIn = false;
+    private loggedIn = true;
 
     private accounts = [{
         name: 'Mika Mikic'
@@ -20,19 +20,19 @@ export class AuthService{
         name: ' Zuca Zutic'
     }];
 
-    login(){
+    login() {
         this.loggedIn = true;
     }
 
-    logout(){
+    logout() {
         this.loggedIn = false;
     }
 
-    register(){
+    register() {
     }
 
     isAuthenticated() {
-        let promise = new Promise((resolve,reject) =>{
+        let promise = new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(this.loggedIn);
             }, 800);
@@ -41,9 +41,9 @@ export class AuthService{
         return promise;
     }
 
-    delete(){
+    delete() {
     }
 
-    update(){
+    update() {
     }
 }

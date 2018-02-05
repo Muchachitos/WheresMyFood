@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
-import { HttpModule }  from '@angular/http';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -20,7 +20,7 @@ import { ScrollStopDirective } from './common/directives/stop-scroll.directive';
 
 import { LoggingService } from './common/services/logging.service';
 import { AuthService } from './auth/auth.service';
-import { MealsService } from './meal-list/meals.service';
+import { MealListService } from './meal-list/meal-list.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 
 
@@ -35,7 +35,7 @@ import { AuthGuardService } from './auth/auth-guard.service';
     AuthComponent,
     NotFoundComponent,
     AppPaginationComponent,
-    
+
     ConditionalClassDirective,
     ScrollStopDirective
   ],
@@ -49,7 +49,7 @@ import { AuthGuardService } from './auth/auth-guard.service';
     LoggingService,
     AuthService,
     AuthGuardService,
-    MealsService
+    MealListService
   ],
   bootstrap: [AppComponent]
 })

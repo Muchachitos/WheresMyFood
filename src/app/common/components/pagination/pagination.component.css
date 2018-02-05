@@ -1,0 +1,9 @@
+.non-active {
+    background-color: rgb(230, 232, 233);
+    pointer-events: none;
+    cursor: default;
+}
+
+.active{
+    border: 1px solid rgb(152, 156, 156);
+}
