@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -10,7 +10,8 @@ import { DailyMealListComponent } from './meals/daily-list/daily-meal-list.compo
 import { MealComponent } from './meals/daily-list/meal/meal.component';
 import { MealDetailComponent } from './meals/daily-list/meal-detail/meal-detail.component';
 import { OrdersComponent } from './orders/orders.component';
-import { AuthComponent } from './auth/auth.component';
+import { SignInComponent } from './auth/signIn/signIn.component';
+import { SignUpComponent } from "./auth/signUp/signUp.component";
 
 import { NotFoundComponent } from './common/components/404/page-not-found.component';
 import { AppPaginationComponent } from './common/components/pagination/pagination.component';
@@ -33,7 +34,8 @@ import { AuthGuardService } from './auth/auth-guard.service';
     MealComponent,
     MealDetailComponent,
     OrdersComponent,
-    AuthComponent,
+    SignInComponent,
+    SignUpComponent,
     NotFoundComponent,
     AppPaginationComponent,
 
@@ -43,6 +45,7 @@ import { AuthGuardService } from './auth/auth-guard.service';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule
   ],

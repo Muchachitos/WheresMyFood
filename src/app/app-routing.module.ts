@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DailyMealListComponent } from "./meals/daily-list/daily-meal-list.component";
 import { MealDetailComponent } from "./meals/daily-list/meal-detail/meal-detail.component";
 import { OrdersComponent } from "./orders/orders.component";
-import { AuthComponent } from "./auth/auth.component";
+import { SignInComponent } from "./auth/signIn/signIn.component";
+import { SignUpComponent } from "./auth/signUp/signUp.component";
 
 import { NotFoundComponent } from "./common/components/404/page-not-found.component";
 
@@ -15,7 +16,8 @@ const appRoutes: Routes = [
     { path: 'meal-list', component: DailyMealListComponent },
     { path: 'meal-list/:id', canActivate: [AuthGuardService], component: MealDetailComponent, resolve: { detailModel: MealDetailResolverService } },
     { path: 'orders', component: OrdersComponent },
-    { path: 'authentication', component: AuthComponent },
+    { path: 'login', component: SignInComponent },
+    { path: 'register', component: SignUpComponent },
     // needs to be last
     { path: '**', component: NotFoundComponent }
 ];

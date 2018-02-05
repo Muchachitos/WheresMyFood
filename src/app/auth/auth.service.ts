@@ -5,20 +5,7 @@ import { Injectable } from "@angular/core";
 export class AuthService {
     constructor(private loggingService: LoggingService) { }
 
-    private loggedIn = true;
-
-    private accounts = [{
-        name: 'Mika Mikic'
-    },
-    {
-        name: 'Pera Peric'
-    },
-    {
-        name: 'Zika Zikic'
-    },
-    {
-        name: ' Zuca Zutic'
-    }];
+    private loggedIn = false;
 
     login() {
         this.loggedIn = true;
