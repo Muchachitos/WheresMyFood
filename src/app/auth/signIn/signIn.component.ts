@@ -16,8 +16,6 @@ export class SignInComponent implements OnInit {
     }
 
     private onSubmit(form: NgForm) {
-        console.log(form.value.email);
-        console.log(form.value.password);
     }
 
     ngOnInit(): void {

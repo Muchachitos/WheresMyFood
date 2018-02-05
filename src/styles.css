@@ -44,3 +44,11 @@ body {
 input.ng-invalid.ng-touched {
   border: 1px solid #eb626d;
 }
+
+.no-top-border{
+  border-top:none;
+}
+
+.panel.no-top-border{
+  border-top:none;
+}

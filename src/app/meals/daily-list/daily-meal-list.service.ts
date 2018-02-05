@@ -152,7 +152,7 @@ export class DailyMealListService {
         NumberOfOrders: 4
     }];
 
-    getMealsMeta(): MealsListMetaModel {
+    getMetaForMeals(): MealsListMetaModel {
         return new MealsListMetaModel(3, this.list.length, 5, 8);
     }
 

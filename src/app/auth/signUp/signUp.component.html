@@ -1,34 +1,31 @@
-<div class="row">
-  <div class="col-sm-3 col-md-4"></div>
-  <div class="col-sm-6 col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h2 class="align-center">Sign up</h2>
-        <hr>
-        <form (ngSubmit)="onSubmit()" [formGroup]="signupForm">
-          <div class="form-group">
-            <label for="firstname">First name</label>
-            <input type="text" class="form-control" placeholder="First name" fromControlName="firstname">
-          </div>
-          <div class="form-group">
-            <label for="lastname">Last name</label>
-            <input type="text" class="form-control" placeholder="Last name" formControlName="lastname">
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" placeholder="Email" formControlName="email">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" placeholder="Password" formControlName="password">
-          </div>
-          <button routerLink="/login" class="btn btn-sm btn-default">Sign in</button>
-          <button (click)="cancel()" class="btn btn-sm btn-danger float-right">Cancel</button>
-          <button type="submit" class="btn btn-sm btn-success float-right margin-right-1">Register</button>
-        </form>
+<div class="panel panel-default no-top-border">
+  <div class="panel-body">
+    <h2 class="align-center">Sign up</h2>
+    <hr>
+    <form (ngSubmit)="onSubmit()" [formGroup]="signupForm">
+      <div class="form-group">
+        <label for="firstname">First name</label>
+        <input type="text" class="form-control" placeholder="First name" formControlName="firstname">
       </div>
-    </div>
+      <div class="form-group">
+        <label for="lastname">Last name</label>
+        <input type="text" class="form-control" placeholder="Last name" formControlName="lastname">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" placeholder="Email" formControlName="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" placeholder="Password" formControlName="password">
+      </div>
+      <div class="form-group">
+        <label for="password">Confirm password</label>
+        <input type="password" class="form-control" placeholder="Confirm password" formControlName="confirmPassword">
+      </div>
+      <button (click)="cancel()" class="btn btn-sm btn-danger float-right">Cancel</button>
+      <button type="submit" class="btn btn-sm btn-success float-right margin-right-1">Register</button>
+    </form>
   </div>
-  <div class="col-sm-3 col-md-4"></div>
 </div>

@@ -10,6 +10,7 @@ import { DailyMealListComponent } from './meals/daily-list/daily-meal-list.compo
 import { MealComponent } from './meals/daily-list/meal/meal.component';
 import { MealDetailComponent } from './meals/daily-list/meal-detail/meal-detail.component';
 import { OrdersComponent } from './orders/orders.component';
+import { AuthComponent } from './auth/auth.component';
 import { SignInComponent } from './auth/signIn/signIn.component';
 import { SignUpComponent } from "./auth/signUp/signUp.component";
 
@@ -23,6 +24,7 @@ import { LoggingService } from './common/services/logging.service';
 import { AuthService } from './auth/auth.service';
 import { DailyMealListService } from './meals/daily-list/daily-meal-list.service';
 import { MealDetailResolverService } from './meals/daily-list/meal-detail/meal-detail-resolver.service';
+import { DailyMealListResolverService } from './meals/daily-list/daily-meal-list-resolver.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 
 
@@ -34,6 +36,7 @@ import { AuthGuardService } from './auth/auth-guard.service';
     MealComponent,
     MealDetailComponent,
     OrdersComponent,
+    AuthComponent,
     SignInComponent,
     SignUpComponent,
     NotFoundComponent,
@@ -54,7 +57,8 @@ import { AuthGuardService } from './auth/auth-guard.service';
     AuthService,
     AuthGuardService,
     DailyMealListService,
-    MealDetailResolverService
+    MealDetailResolverService,
+    DailyMealListResolverService
   ],
   bootstrap: [AppComponent]
 })
