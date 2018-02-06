@@ -18,7 +18,6 @@ import { PaginationModel } from "../../common/components/pagination/pagination.m
 export class DailyMealListComponent implements OnInit {
     private list: MealModel[] = [];
     private meta: MealsListMetaModel;
-    private pagesIndexes: number[] = [];
     private canMakeOrder: boolean;
     private currentPage: number = 1;
 
@@ -29,11 +28,12 @@ export class DailyMealListComponent implements OnInit {
 
         this.route.data.subscribe((data: Data) => {
             this.list = data['mealListModel'];
-            this.canMakeOrder = this.list.find(x => x.IsOrdered == true) == undefined;
         });
 
+        this.canMakeOrder = this.list.find(x => x.IsOrdered == true) == undefined;
+
         this.mealsService
-            .mealListChanged
+            .mealList
             .subscribe((meals: MealModel[]) => {
                 this.list = meals;
                 this.canMakeOrder = this.list.find(x => x.IsOrdered == true) == undefined;
@@ -41,6 +41,8 @@ export class DailyMealListComponent implements OnInit {
     }
 
     onPageChange(model: PaginationModel) {
-        this.list = this.mealsService.getMeals(model.currentPage, this.meta.numberOfItemsToShow);
+        this.mealsService.getMeals(model.currentPage, this.meta.numberOfItemsToShow).subscribe((meals: MealModel[]) => {
+            this.list = meals;
+        });
     }
 }
