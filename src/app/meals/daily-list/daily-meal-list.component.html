@@ -1,8 +1,8 @@
 <div class="row row-min-height">
-    <div class="col-sm-3" *ngFor="let meal of list">
-        <app-meal [canMakeOrder]="canMakeOrder" [item]="meal"></app-meal>
-    </div>
+  <div class="col-sm-3" *ngFor="let meal of list">
+    <app-meal [canMakeOrder]="canMakeOrder" [item]="meal"></app-meal>
+  </div>
 </div>
 <div class="align-center">
-    <app-pagination (pageChange)="onPageChange($event)" [totalNumberOfPages]="meta.totalNumberOfPages" [numberOfPagesToShow]="meta.numberOfPagesToShow"></app-pagination>
+  <app-pagination (pageChange)="onPageChange($event)" [totalNumberOfPages]="meta.TotalNumberOfPages" [numberOfPagesToShow]="meta.NumberOfPagesToShow"></app-pagination>
 </div>
