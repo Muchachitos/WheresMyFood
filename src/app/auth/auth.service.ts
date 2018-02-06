@@ -1,5 +1,6 @@
 import { LoggingService } from "../common/services/logging.service";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class AuthService {
@@ -18,14 +19,9 @@ export class AuthService {
     register() {
     }
 
-    isAuthenticated() {
-        let promise = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(this.loggedIn);
-            }, 800);
-        });
-
-        return promise;
+    isAuthenticated(): Observable<boolean> {
+        // web api
+        return Observable.of(this.loggedIn);
     }
 
     delete() {

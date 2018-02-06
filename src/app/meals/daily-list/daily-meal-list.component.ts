@@ -17,16 +17,19 @@ import { Subscription } from "rxjs/Subscription";
 })
 
 export class DailyMealListComponent implements OnInit, OnDestroy {
-    private list: MealModel[] = [];
+    private list: MealModel[];
     private meta: MealsListMetaModel;
     private canMakeOrder: boolean;
     private currentPage: number = 1;
+
     private mealServiceSubscription: Subscription;
     private routeDataSubscription: Subscription;
     private getMealsSubscription: Subscription;
     private metaSubscription: Subscription;
 
-    constructor(private mealsService: DailyMealListService, private route: ActivatedRoute) { }
+    constructor(private mealsService: DailyMealListService, private route: ActivatedRoute) {
+        this.list = [];
+    }
 
     ngOnInit(): void {
         this.metaSubscription =
