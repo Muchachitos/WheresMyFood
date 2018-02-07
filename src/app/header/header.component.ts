@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-header',
@@ -6,4 +8,25 @@ import { Component } from '@angular/core';
     styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent { }
+export class HeaderComponent implements OnDestroy {
+    private user: { firstName: string, lastName: string, email: string, }
+    private loginSubscription: Subscription;
+
+    constructor(private authService: AuthService) {
+        this.user = null;
+
+        this.loginSubscription =
+            this.authService
+                .onUserLoggedIn()
+                .subscribe((user) => this.user = user);
+    }
+
+    logout() {
+        this.authService.logout();
+    }
+
+    ngOnDestroy(): void {
+        if (!!this.loginSubscription)
+            this.loginSubscription.unsubscribe();
+    }
+}

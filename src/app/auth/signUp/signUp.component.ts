@@ -28,16 +28,15 @@ export class SignUpComponent implements OnInit {
     }
 
     private onSubmit() {
-        console.log(this.signupForm);
         if (!this.signupForm.valid) return;
         this.accountService
             .create(
             {
-                Id: 0,
-                FirstName: this.signupForm.value.firstname,
-                LastName: this.signupForm.value.lastname,
-                Email: this.signupForm.value.email,
-                Password: this.signupForm.value.password
+                id: 0,
+                firstName: this.signupForm.value.firstname,
+                lastName: this.signupForm.value.lastname,
+                email: this.signupForm.value.email,
+                password: this.signupForm.value.password
             })
             .subscribe(data => {
                 this.alertService.success('Registration successful');

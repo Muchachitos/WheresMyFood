@@ -19,6 +19,7 @@ export class DailyMealListService {
 
     getMetaForMeals(): Observable<MealsListMetaModel> {
         const meta = this.storageService.getMeta();
+
         if (meta != undefined) return Observable.of(meta);
 
         return this

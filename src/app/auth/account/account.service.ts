@@ -30,7 +30,7 @@ export class AccountService {
     update(user: Account) {
         return this
             .http
-            .put(`${AppConfig.apiUrl}/account/${user.Id}`, user, this.jwt());
+            .put(`${AppConfig.apiUrl}/account/${user.id}`, user, this.jwt());
     }
 
     delete(id: number) {

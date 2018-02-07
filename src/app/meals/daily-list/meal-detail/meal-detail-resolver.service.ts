@@ -8,28 +8,28 @@ export class MealDetailResolverService implements Resolve<MealDetailModel>{
 
         // call web api
         let model: MealDetailModel = {
-            Id: id,
-            Name: 'Some name 1',
-            Description: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-            Image: 'https://static.pexels.com/photos/46239/salmon-dish-food-meal-46239.jpeg',
-            IsOrdered: false,
-            OrderList: [{
-                Firstname: 'Mika',
-                Lastname: 'Mikic',
-                HasOrdered: false,
-                LastTimeOrdered: new Date(2018, 1, 20)
+            id: id,
+            name: 'Some name 1',
+            description: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            image: 'https://static.pexels.com/photos/46239/salmon-dish-food-meal-46239.jpeg',
+            isOrdered: false,
+            orderList: [{
+                firstName: 'Mika',
+                lastName: 'Mikic',
+                hasOrdered: false,
+                lastTimeOrdered: new Date(2018, 1, 20)
             },
             {
-                Firstname: 'Pera',
-                Lastname: 'Peric',
-                HasOrdered: true,
-                LastTimeOrdered: new Date(2018, 1, 25)
+                firstName: 'Pera',
+                lastName: 'Peric',
+                hasOrdered: true,
+                lastTimeOrdered: new Date(2018, 1, 25)
             },
             {
-                Firstname: 'Zuca',
-                Lastname: 'Zutic',
-                HasOrdered: false,
-                LastTimeOrdered: new Date(2018, 1, 23)
+                firstName: 'Zuca',
+                lastName: 'Zutic',
+                hasOrdered: false,
+                lastTimeOrdered: new Date(2018, 1, 23)
             }]
         };
 

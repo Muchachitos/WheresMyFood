@@ -1,7 +1,7 @@
 export class Account {
-    Id: number;
-    Email: string;
-    Password: string;
-    FirstName: string;
-    LastName: string;
+    id: number;
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
 }

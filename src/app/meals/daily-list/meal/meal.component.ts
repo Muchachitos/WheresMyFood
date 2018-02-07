@@ -16,10 +16,10 @@ export class MealComponent {
     constructor(private ordersService: OrdersService) { }
 
     order(item: MealModel) {
-        this.ordersService.order({ mealId: item.Id, userId: 1 });
+        this.ordersService.order({ mealId: item.id, userId: 1 });
     }
 
     cancel(item: MealModel) {
-        this.ordersService.cancel({ mealId: item.Id, userId: 1 });
+        this.ordersService.cancel({ mealId: item.id, userId: 1 });
     }
 }

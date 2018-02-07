@@ -1,6 +1,6 @@
 export class MealsListMetaModel {
-    TotalNumberOfPages: number;
-    TotalNumberOfItems: number;
-    NumberOfPagesToShow: number;
-    NumberOfItemsToShow: number;
+    totalNumberOfPages: number;
+    totalNumberOfItems: number;
+    numberOfPagesToShow: number;
+    numberOfItemsToShow: number;
 }

@@ -42,7 +42,7 @@ export class DailyMealListComponent implements OnInit, OnDestroy {
 
     onPageChange(model: PaginationModel) {
         this.mealsService
-            .getMeals(model.currentPage, this.meta.NumberOfItemsToShow)
+            .getMeals(model.currentPage, this.meta.numberOfItemsToShow)
             .toPromise()
             .then((list: MealModel[]) => {
                 this.list = list;
@@ -55,7 +55,7 @@ export class DailyMealListComponent implements OnInit, OnDestroy {
                 .data
                 .subscribe((data: Data) => {
                     this.list = data['mealListModel'];
-                    this.canMakeOrder = this.list.find(x => x.IsOrdered == true) == undefined;
+                    this.canMakeOrder = this.list.find(x => x.isOrdered == true) == undefined;
                 });
 
         this.mealServiceListSubscription =
@@ -63,7 +63,7 @@ export class DailyMealListComponent implements OnInit, OnDestroy {
                 .getMealList()
                 .subscribe((meals: MealModel[]) => {
                     this.list = meals;
-                    this.canMakeOrder = this.list.find(x => x.IsOrdered == true) == undefined;
+                    this.canMakeOrder = this.list.find(x => x.isOrdered == true) == undefined;
                 });
     }
 

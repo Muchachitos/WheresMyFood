@@ -18,12 +18,12 @@ export class DailyMealLocalStorageService implements OnDestroy {
         this.internalList
             .forEach(m => {
                 m.array.forEach(element => {
-                    if (element.Id == mealId) {
-                        element.IsOrdered = true;
-                        element.NumberOfOrders++;
+                    if (element.id == mealId) {
+                        element.isOrdered = true;
+                        element.numberOfOrders++;
                     }
                     else {
-                        element.IsOrdered = false;
+                        element.isOrdered = false;
                     }
                 });
             });
@@ -33,9 +33,9 @@ export class DailyMealLocalStorageService implements OnDestroy {
     public unmarkMealOrdered(mealId: number) {
         this.internalList.forEach(m => {
             m.array.forEach(element => {
-                element.IsOrdered = false;
-                if (mealId == element.Id) {
-                    element.NumberOfOrders--;
+                element.isOrdered = false;
+                if (mealId == element.id) {
+                    element.numberOfOrders--;
                 }
             });
         });
