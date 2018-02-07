@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,9 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 
 export class AppComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private router: Router, public toastr: ToastsManager, viewContainerRef: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(viewContainerRef);
+  }
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {

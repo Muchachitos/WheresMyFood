@@ -2,17 +2,16 @@ import { MealsListMetaModel } from "./daily-meal-list-meta.model";
 import { MealModel } from "./meal/meal.model";
 import { Subject } from "rxjs/Subject";
 import { OnDestroy } from "@angular/core";
+import { Observable } from "rxjs/Observable";
 
 export class DailyMealLocalStorageService implements OnDestroy {
     private internalList: { pageNumber: number, onCurrentPage: boolean, array: MealModel[] }[];
     private meta: MealsListMetaModel;
-    public mealList: Subject<MealModel[]>;
-    public mealMetaChanged: Subject<MealsListMetaModel>;
+    private mealList: Subject<MealModel[]>;
 
     constructor() {
         this.internalList = [];
         this.mealList = new Subject();
-        this.mealMetaChanged = new Subject();
     }
 
     public markMealOrdered(mealId: number) {
@@ -45,11 +44,14 @@ export class DailyMealLocalStorageService implements OnDestroy {
 
     public setMeta(meta: MealsListMetaModel) {
         this.meta = meta;
-        this.mealMetaChanged.next(this.meta);
     }
 
     public getMeta() {
         return this.meta;
+    }
+
+    public getMealList(): Observable<MealModel[]> {
+        return this.mealList.asObservable();
     }
 
     public addToList(pageNumber: number, array: MealModel[]) {
@@ -60,10 +62,6 @@ export class DailyMealLocalStorageService implements OnDestroy {
         } else {
             this.internalList[pageListIndex].array = array;
         }
-    }
-
-    public getList() {
-        return this.internalList.slice();
     }
 
     public getArrayByPage(pageNumber: number): MealModel[] {
@@ -84,7 +82,5 @@ export class DailyMealLocalStorageService implements OnDestroy {
     ngOnDestroy(): void {
         if (!!this.mealList)
             this.mealList.unsubscribe();
-        if (!!this.mealMetaChanged)
-            this.mealMetaChanged.unsubscribe();
     }
 }

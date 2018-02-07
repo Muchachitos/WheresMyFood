@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MealModel } from "./meal/meal.model";
 import { DailyMealListService } from "./daily-meal-list.service";
-import { Event, ActivatedRoute, Data } from "@angular/router";
+import { ActivatedRoute, Data } from "@angular/router";
 import { MealsListMetaModel } from "./daily-meal-list-meta.model";
 import { PaginationModel } from "../../common/components/pagination/pagination.model";
 import { Observable } from "rxjs/Observable";
@@ -40,6 +40,15 @@ export class DailyMealListComponent implements OnInit, OnDestroy {
             });
     }
 
+    onPageChange(model: PaginationModel) {
+        this.mealsService
+            .getMeals(model.currentPage, this.meta.NumberOfItemsToShow)
+            .toPromise()
+            .then((list: MealModel[]) => {
+                this.list = list;
+            });
+    }
+
     ngOnInit(): void {
         this.routeDataSubscription =
             this.route
@@ -51,20 +60,11 @@ export class DailyMealListComponent implements OnInit, OnDestroy {
 
         this.mealServiceListSubscription =
             this.mealStorage
-                .mealList
+                .getMealList()
                 .subscribe((meals: MealModel[]) => {
                     this.list = meals;
                     this.canMakeOrder = this.list.find(x => x.IsOrdered == true) == undefined;
                 });
-    }
-
-    onPageChange(model: PaginationModel) {
-        this.mealsService
-            .getMeals(model.currentPage, this.meta.NumberOfItemsToShow)
-            .toPromise()
-            .then((list: MealModel[]) => {
-                this.list = list;
-            });
     }
 
     ngOnDestroy(): void {

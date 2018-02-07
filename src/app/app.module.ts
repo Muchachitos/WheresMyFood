@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -31,6 +33,9 @@ import { DailyMealLocalStorageService } from './meals/daily-list/daily-meal-loca
 
 import { OrdersService } from './orders/orders.service';
 
+import { AlertService } from './common/services/alert.service';
+import { AccountService } from './auth/account/account.service';
+
 
 @NgModule({
   declarations: [
@@ -51,10 +56,12 @@ import { OrdersService } from './orders/orders.service';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ToastModule.forRoot()
   ],
   providers: [
     LoggingService,
@@ -65,7 +72,9 @@ import { OrdersService } from './orders/orders.service';
     DailyMealListResolverService,
     DailyMealLocalStorageService,
 
-    OrdersService
+    OrdersService,
+    AlertService,
+    AccountService
   ],
   bootstrap: [AppComponent]
 })
