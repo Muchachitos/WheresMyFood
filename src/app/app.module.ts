@@ -29,6 +29,8 @@ import { MealDetailResolverService } from './meals/daily-list/meal-detail/meal-d
 import { DailyMealListResolverService } from './meals/daily-list/daily-meal-list-resolver.service';
 import { DailyMealLocalStorageService } from './meals/daily-list/daily-meal-local-storage.service';
 
+import { OrdersService } from './orders/orders.service';
+
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { DailyMealLocalStorageService } from './meals/daily-list/daily-meal-loca
     DailyMealListService,
     MealDetailResolverService,
     DailyMealListResolverService,
-    DailyMealLocalStorageService
+    DailyMealLocalStorageService,
+
+    OrdersService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,7 @@
 import { Component, Input, EventEmitter } from "@angular/core";
 import { MealModel } from "./meal.model";
 import { DailyMealListService } from "../daily-meal-list.service";
+import { OrdersService } from "../../../orders/orders.service";
 
 @Component({
     selector: 'app-meal',
@@ -12,17 +13,13 @@ export class MealComponent {
     @Input() item: MealModel;
     @Input() canMakeOrder: boolean;
 
-    private count: number = 0;
-
-    constructor(private mealsService: DailyMealListService) { }
+    constructor(private ordersService: OrdersService) { }
 
     order(item: MealModel) {
-        this.count += 1;
-        this.mealsService.order(item);
+        this.ordersService.order({ mealId: item.Id, userId: 1 });
     }
 
     cancel(item: MealModel) {
-        this.mealsService.cancel(item);
-        this.count -= 1;
+        this.ordersService.cancel({ mealId: item.Id, userId: 1 });
     }
 }

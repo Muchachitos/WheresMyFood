@@ -48,20 +48,4 @@ export class DailyMealListService {
                 return Observable.throw(error);
             });
     }
-
-    // move to orders.service
-    order(meal: MealModel) {
-        // ToDo: call webapi service
-        if (meal != undefined || meal.Id > 0) {
-            this.storageService.markMealOrdered(meal.Id);
-        }
-    }
-
-    // move to orders.service
-    cancel(meal: MealModel) {
-        // ToDo: call webapi service
-        if (meal != undefined || meal.Id > 0) {
-            this.storageService.unmarkMealOrdered(meal.Id);
-        }
-    }
 }
