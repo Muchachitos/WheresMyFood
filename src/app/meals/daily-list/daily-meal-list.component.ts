@@ -7,7 +7,7 @@ import { PaginationModel } from "../../common/components/pagination/pagination.m
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import { DailyMealLocalStorageService } from "./daily-meal-local-storage.service";
-
+import { AuthService } from "../../auth/auth.service";
 
 @Component({
     selector: 'app-daily-meal-list',
@@ -21,23 +21,18 @@ export class DailyMealListComponent implements OnInit, OnDestroy {
     private list: MealModel[];
     private meta: MealsListMetaModel;
     private canMakeOrder: boolean;
-    private currentPage: number = 1;
+    private currentPage: number;
+    private isUserLoggedIn: boolean;
 
     private mealServiceListSubscription: Subscription;
     private routeDataSubscription: Subscription;
+    private loginSubscription: Subscription;
 
-    constructor(private mealsService: DailyMealListService, private mealStorage: DailyMealLocalStorageService, private route: ActivatedRoute) {
+    constructor(private mealsService: DailyMealListService, private mealStorage: DailyMealLocalStorageService, private route: ActivatedRoute, private authService: AuthService) {
         this.list = [];
-
-        this.mealsService
-            .getMetaForMeals()
-            .toPromise()
-            .then((meta: MealsListMetaModel) => {
-                this.meta = meta;
-            })
-            .catch(error => {
-                return 'error with getting meta for meals';
-            });
+        this.currentPage = 1;
+        this.isUserLoggedIn = this.authService.isAuthenticated();
+        this.meta = this.mealStorage.getMeta();
     }
 
     onPageChange(model: PaginationModel) {
@@ -65,6 +60,11 @@ export class DailyMealListComponent implements OnInit, OnDestroy {
                     this.list = meals;
                     this.canMakeOrder = this.list.find(x => x.isOrdered == true) == undefined;
                 });
+
+        this.loginSubscription =
+            this.authService
+                .onUserLoggedIn()
+                .subscribe(user => this.isUserLoggedIn = user != null);
     }
 
     ngOnDestroy(): void {
@@ -72,5 +72,7 @@ export class DailyMealListComponent implements OnInit, OnDestroy {
             this.mealServiceListSubscription.unsubscribe();
         if (!!this.routeDataSubscription)
             this.routeDataSubscription.unsubscribe();
+        if (!!this.loginSubscription)
+            this.loginSubscription.unsubscribe();
     }
 }

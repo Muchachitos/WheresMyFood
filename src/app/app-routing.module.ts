@@ -23,7 +23,7 @@ const appRoutes: Routes = [
     },
     { path: 'meal-list', component: DailyMealListComponent, resolve: { mealListModel: DailyMealListResolverService } },
     { path: 'meal-list/:id', canActivate: [AuthGuardService], component: MealDetailComponent, resolve: { detailModel: MealDetailResolverService } },
-    { path: 'orders', component: OrdersComponent },
+    { path: 'orders', component: OrdersComponent, canActivate: [AuthGuardService] },
     // needs to be last
     { path: '**', component: NotFoundComponent }
 ];

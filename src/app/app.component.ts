@@ -11,6 +11,8 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class AppComponent implements OnInit {
   constructor(private router: Router, public toastr: ToastsManager, viewContainerRef: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(viewContainerRef);
+
+    // razmisliti o ucitavanju konfiguracije odmah na pocetku... tipa meta podaci za jelo itd...
   }
 
   ngOnInit(): void {

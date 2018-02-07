@@ -17,26 +17,8 @@ export class DailyMealListService {
         this.headers.append('Access-Control-Allow-Credentials', 'true');
     }
 
-    getMetaForMeals(): Observable<MealsListMetaModel> {
-        const meta = this.storageService.getMeta();
-
-        if (meta != undefined) return Observable.of(meta);
-
-        return this
-            .http
-            .get(`${AppConfig.apiUrl}/data/meals/meta`)
-            .map((response: Response) => {
-                this.storageService.setMeta(response.json());
-                return response.json();
-            })
-            .catch((error: Response) => {
-                return Observable.throw(error);
-            });
-    }
-
     getMeals(pageNumber: number, itemsToTake: number): Observable<MealModel[]> {
         const array = this.storageService.getArrayByPage(pageNumber);
-
         if (array.length > 0) return Observable.of(array);
 
         return this

@@ -24,8 +24,8 @@
         <label for="password">Confirm password</label>
         <input type="password" class="form-control" placeholder="Confirm password" formControlName="confirmPassword">
       </div>
-      <button (click)="cancel()" class="btn btn-sm btn-danger float-right">Cancel</button>
-      <button type="submit" class="btn btn-sm btn-success float-right margin-right-1" [disabled]="!signupForm.valid">Register</button>
+      <button type="submit" class="btn btn-sm btn-success float-right" [disabled]="!signupForm.valid">Register</button>
+      <button (click)="cancel()" class="btn btn-sm btn-danger float-right margin-right-1">Cancel</button>
     </form>
   </div>
 </div>

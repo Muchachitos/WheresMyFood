@@ -13,7 +13,7 @@ export class HeaderComponent implements OnDestroy {
     private loginSubscription: Subscription;
 
     constructor(private authService: AuthService) {
-        this.user = null;
+        this.user = this.authService.getUserData();
 
         this.loginSubscription =
             this.authService

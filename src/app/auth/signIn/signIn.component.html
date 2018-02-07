@@ -11,8 +11,8 @@
         <label for="exampleInputPassword1">Password</label>
         <input type="password" class="form-control" placeholder="Password" name="password" required ngModel>
       </div>
-      <button (click)="cancel()" class="btn btn-sm btn-danger float-right">Cancel</button>
-      <button type="submit" class="btn btn-sm btn-success float-right margin-right-1" [disabled]="!form.valid">Login</button>
+      <button type="submit" class="btn btn-sm btn-success float-right" [disabled]="!form.valid">Login</button>
+      <button (click)="cancel()" class="btn btn-sm btn-danger float-right margin-right-1">Cancel</button>
     </form>
   </div>
 </div>

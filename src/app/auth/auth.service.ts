@@ -26,6 +26,14 @@ export class AuthService {
             });
     }
 
+    getUserData(): { firstName: string, lastName: string, email: string } {
+        let user = JSON.parse(localStorage.getItem('currentUser'));
+        if (user != null) {
+            return { firstName: user.firstName, lastName: user.lastName, email: user.email };
+        }
+        return null;
+    }
+
     logout() {
         localStorage.removeItem('currentUser');
         this.userSubject.next(null);
