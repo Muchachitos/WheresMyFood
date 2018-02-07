@@ -6,6 +6,7 @@ import { MealsListMetaModel } from "./daily-meal-list-meta.model";
 import { PaginationModel } from "../../common/components/pagination/pagination.model";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
+import { DailyMealLocalStorageService } from "./daily-meal-local-storage.service";
 
 
 @Component({
@@ -22,23 +23,24 @@ export class DailyMealListComponent implements OnInit, OnDestroy {
     private canMakeOrder: boolean;
     private currentPage: number = 1;
 
-    private mealServiceSubscription: Subscription;
+    private mealServiceListSubscription: Subscription;
     private routeDataSubscription: Subscription;
-    private getMealsSubscription: Subscription;
-    private metaSubscription: Subscription;
 
-    constructor(private mealsService: DailyMealListService, private route: ActivatedRoute) {
+    constructor(private mealsService: DailyMealListService, private mealStorage: DailyMealLocalStorageService, private route: ActivatedRoute) {
         this.list = [];
+
+        this.mealsService
+            .getMetaForMeals()
+            .toPromise()
+            .then((meta: MealsListMetaModel) => {
+                this.meta = meta;
+            })
+            .catch(error => {
+                return 'error with getting meta for meals';
+            });
     }
 
     ngOnInit(): void {
-        this.metaSubscription =
-            this.mealsService
-                .getMetaForMeals()
-                .subscribe((meta: MealsListMetaModel) => {
-                    this.meta = meta;
-                });
-
         this.routeDataSubscription =
             this.route
                 .data
@@ -47,28 +49,28 @@ export class DailyMealListComponent implements OnInit, OnDestroy {
                     this.canMakeOrder = this.list.find(x => x.IsOrdered == true) == undefined;
                 });
 
-        this.mealServiceSubscription = this.mealsService
-            .mealList
-            .subscribe((meals: MealModel[]) => {
-                this.list = meals;
-                this.canMakeOrder = this.list.find(x => x.IsOrdered == true) == undefined;
-            });
+        this.mealServiceListSubscription =
+            this.mealStorage
+                .mealList
+                .subscribe((meals: MealModel[]) => {
+                    this.list = meals;
+                    this.canMakeOrder = this.list.find(x => x.IsOrdered == true) == undefined;
+                });
     }
 
     onPageChange(model: PaginationModel) {
-        this.getMealsSubscription = this.mealsService.getMeals(model.currentPage, this.meta.NumberOfItemsToShow).subscribe((meals: MealModel[]) => {
-            this.list = meals;
-        });
+        this.mealsService
+            .getMeals(model.currentPage, this.meta.NumberOfItemsToShow)
+            .toPromise()
+            .then((list: MealModel[]) => {
+                this.list = list;
+            });
     }
 
     ngOnDestroy(): void {
-        if (!!this.mealServiceSubscription)
-            this.mealServiceSubscription.unsubscribe();
+        if (!!this.mealServiceListSubscription)
+            this.mealServiceListSubscription.unsubscribe();
         if (!!this.routeDataSubscription)
             this.routeDataSubscription.unsubscribe();
-        if (!!this.getMealsSubscription)
-            this.getMealsSubscription.unsubscribe();
-        if (!!this.metaSubscription)
-            this.metaSubscription.unsubscribe();
     }
 }

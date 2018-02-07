@@ -1,10 +1,10 @@
-import { LoggingService } from "../common/services/logging.service";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { Http } from "@angular/http";
 
 @Injectable()
 export class AuthService {
-    constructor(private loggingService: LoggingService) { }
+    constructor(private http: Http) { }
 
     private loggedIn = false;
 
@@ -19,9 +19,8 @@ export class AuthService {
     register() {
     }
 
-    isAuthenticated(): Observable<boolean> {
-        // web api
-        return Observable.of(this.loggedIn);
+    isAuthenticated() {
+        return this.loggedIn;
     }
 
     delete() {

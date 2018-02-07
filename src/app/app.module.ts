@@ -22,10 +22,12 @@ import { ScrollStopDirective } from './common/directives/stop-scroll.directive';
 
 import { LoggingService } from './common/services/logging.service';
 import { AuthService } from './auth/auth.service';
+import { AuthGuardService } from './auth/auth-guard.service';
+
 import { DailyMealListService } from './meals/daily-list/daily-meal-list.service';
 import { MealDetailResolverService } from './meals/daily-list/meal-detail/meal-detail-resolver.service';
 import { DailyMealListResolverService } from './meals/daily-list/daily-meal-list-resolver.service';
-import { AuthGuardService } from './auth/auth-guard.service';
+import { DailyMealLocalStorageService } from './meals/daily-list/daily-meal-local-storage.service';
 
 
 @NgModule({
@@ -58,7 +60,8 @@ import { AuthGuardService } from './auth/auth-guard.service';
     AuthGuardService,
     DailyMealListService,
     MealDetailResolverService,
-    DailyMealListResolverService
+    DailyMealListResolverService,
+    DailyMealLocalStorageService
   ],
   bootstrap: [AppComponent]
 })

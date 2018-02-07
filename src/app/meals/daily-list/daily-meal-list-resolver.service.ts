@@ -11,8 +11,10 @@ export class DailyMealListResolverService implements Resolve<MealModel[]> {
     constructor(private dailyMealListService: DailyMealListService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<MealModel[]> | Promise<MealModel[]> | MealModel[] {
-        return this.dailyMealListService.getMetaForMeals().switchMap((meta: MealsListMetaModel) => {
-            return this.dailyMealListService.getMeals(1, meta.NumberOfItemsToShow);
+        return new Promise<MealModel[]>((resolve, reject) => {
+            this.dailyMealListService.getMetaForMeals().toPromise().then((meta: MealsListMetaModel) => {
+                resolve(this.dailyMealListService.getMeals(1, meta.NumberOfItemsToShow).toPromise());
+            })
         });
     }
 }
