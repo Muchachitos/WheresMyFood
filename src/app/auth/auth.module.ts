@@ -6,7 +6,6 @@ import { AuthComponent } from "./auth.component";
 import { SignInComponent } from "./signIn/signIn.component";
 import { SignUpComponent } from "./signUp/signUp.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AuthGuardService } from "./auth-guard.service";
 import { AuthRoutingModule } from "./auth-routing.module";
 
 @NgModule({
@@ -21,9 +20,6 @@ import { AuthRoutingModule } from "./auth-routing.module";
         AuthComponent,
         SignInComponent,
         SignUpComponent
-    ],
-    providers: [
-        AuthGuardService
     ]
 })
 

@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnDestroy {
     private loginSubscription: Subscription;
 
     constructor(private authService: AuthService) {
-        this.user = this.authService.getUserData();
+        this.user = this.authService.getLoggedInUserData();
 
         this.loginSubscription =
             this.authService

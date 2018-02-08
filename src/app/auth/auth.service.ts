@@ -1,37 +1,37 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { Http, Response } from "@angular/http";
 import { AppConfig } from "../app.config";
 import { Subject } from "rxjs";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 
 @Injectable()
 export class AuthService {
     private userSubject: Subject<{ firstName: string, lastName: string, email: string }>;
 
-    constructor(private http: Http) {
+    constructor(private httpClient: HttpClient) {
         this.userSubject = new Subject<{ firstName: string, lastName: string, email: string }>();
+    }
+
+    isAuthenticated(): boolean {
+        return localStorage.getItem('currentUser') != null;
+    }
+
+    getToken() {
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        return currentUser != null ? currentUser.token : null;
     }
 
     login(email: string, password: string) {
         return this
-            .http
-            .post(`${AppConfig.apiUrl}/account/authenticate`, { email: email, password: password })
-            .map((response: Response) => {
-                let user = response.json();
-                if (user && user.token) {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.userSubject.next({ firstName: user.firstName, lastName: user.lastName, email: user.email });
+            .httpClient
+            .post(`${AppConfig.apiUrl}/account/authenticate`, { email: email, password: password }, { observe: 'response' })
+            .map((response: HttpResponse<{ id: number, firstName: string, lastName: string, email: string, token: string }>) => {
+                if (response && response.body && response.body.token) {
+                    localStorage.setItem('currentUser', JSON.stringify(response.body));
+                    this.userSubject.next({ firstName: response.body.firstName, lastName: response.body.lastName, email: response.body.email });
                 }
                 return response.status;
             });
-    }
-
-    getUserData(): { firstName: string, lastName: string, email: string } {
-        let user = JSON.parse(localStorage.getItem('currentUser'));
-        if (user != null) {
-            return { firstName: user.firstName, lastName: user.lastName, email: user.email };
-        }
-        return null;
     }
 
     logout() {
@@ -39,11 +39,16 @@ export class AuthService {
         this.userSubject.next(null);
     }
 
-    isAuthenticated(): boolean {
-        return localStorage.getItem('currentUser') != null;
+    getLoggedInUserData(): { firstName: string, lastName: string, email: string } {
+        let user = JSON.parse(localStorage.getItem('currentUser'));
+        if (user != null) {
+            return { firstName: user.firstName, lastName: user.lastName, email: user.email };
+        }
+        return null;
     }
 
     onUserLoggedIn(): Observable<{ firstName: string, lastName: string, email: string }> {
         return this.userSubject.asObservable();
     }
+
 }
