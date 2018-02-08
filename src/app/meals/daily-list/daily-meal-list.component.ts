@@ -3,7 +3,7 @@ import { MealModel } from "./meal/meal.model";
 import { DailyMealListService } from "./daily-meal-list.service";
 import { ActivatedRoute, Data } from "@angular/router";
 import { MealsListMetaModel } from "./daily-meal-list-meta.model";
-import { PaginationModel } from "../../common/components/pagination/pagination.model";
+import { PaginationModel } from "../../shared/components/pagination/pagination.model";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import { DailyMealLocalStorageService } from "./daily-meal-local-storage.service";

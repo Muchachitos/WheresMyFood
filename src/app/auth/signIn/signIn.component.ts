@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../auth.service";
-import { AlertService } from "../../common/services/alert.service";
+import { AlertService } from "../../shared/services/alert.service";
 
 @Component({
     selector: 'app-signIn',

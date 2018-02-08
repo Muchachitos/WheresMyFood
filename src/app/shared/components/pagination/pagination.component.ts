@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
+import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
 import { PaginationModel } from "./pagination.model";
 
 @Component({
@@ -8,7 +7,7 @@ import { PaginationModel } from "./pagination.model";
     styleUrls: ['./pagination.component.css']
 })
 
-export class AppPaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit {
     @Input() totalNumberOfPages: number;
     @Input() numberOfPagesToShow: number;
     @Output() pageChange: EventEmitter<PaginationModel> = new EventEmitter<PaginationModel>();

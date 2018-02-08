@@ -16,13 +16,13 @@ import { AuthComponent } from './auth/auth.component';
 import { SignInComponent } from './auth/signIn/signIn.component';
 import { SignUpComponent } from "./auth/signUp/signUp.component";
 
-import { NotFoundComponent } from './common/components/404/page-not-found.component';
-import { AppPaginationComponent } from './common/components/pagination/pagination.component';
+import { PageNotFoundComponent } from './shared/components/404/page-not-found.component';
+import { PaginationComponent } from './shared/components/pagination/pagination.component';
 
-import { ConditionalClassDirective } from './common/directives/conditional-class.directive';
-import { ScrollStopDirective } from './common/directives/stop-scroll.directive';
+import { ConditionalClassDirective } from './shared/directives/conditional-class.directive';
+import { ScrollStopDirective } from './shared/directives/stop-scroll.directive';
 
-import { LoggingService } from './common/services/logging.service';
+import { LoggingService } from './shared/services/logging.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 
@@ -33,7 +33,7 @@ import { DailyMealLocalStorageService } from './meals/daily-list/daily-meal-loca
 
 import { OrdersService } from './orders/orders.service';
 
-import { AlertService } from './common/services/alert.service';
+import { AlertService } from './shared/services/alert.service';
 import { AccountService } from './auth/account/account.service';
 
 
@@ -48,8 +48,8 @@ import { AccountService } from './auth/account/account.service';
     AuthComponent,
     SignInComponent,
     SignUpComponent,
-    NotFoundComponent,
-    AppPaginationComponent,
+    PageNotFoundComponent,
+    PaginationComponent,
 
     ConditionalClassDirective,
     ScrollStopDirective

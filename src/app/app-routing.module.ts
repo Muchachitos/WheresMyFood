@@ -7,7 +7,7 @@ import { AuthComponent } from "./auth/auth.component";
 import { SignInComponent } from "./auth/signIn/signIn.component";
 import { SignUpComponent } from "./auth/signUp/signUp.component";
 
-import { NotFoundComponent } from "./common/components/404/page-not-found.component";
+import { PageNotFoundComponent } from "./shared/components/404/page-not-found.component";
 
 import { AuthGuardService } from "./auth/auth-guard.service";
 import { MealDetailResolverService } from "./meals/daily-list/meal-detail/meal-detail-resolver.service";
@@ -25,7 +25,7 @@ const appRoutes: Routes = [
     { path: 'meal-list/:id', canActivate: [AuthGuardService], component: MealDetailComponent, resolve: { detailModel: MealDetailResolverService } },
     { path: 'orders', component: OrdersComponent, canActivate: [AuthGuardService] },
     // needs to be last
-    { path: '**', component: NotFoundComponent }
+    { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
