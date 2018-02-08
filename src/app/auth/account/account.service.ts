@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { AppConfig } from "../../app.config";
 import { Account } from "./account.model";
+import { AppConfig } from "../../app.config";
 
 @Injectable()
 export class AccountService {
@@ -10,14 +10,14 @@ export class AccountService {
     getAll() {
         return this
             .httpClient
-            .get<Account[]>(`${AppConfig.apiUrl}/account`, { observe: 'body' })
+            .get<Account[]>(`${AppConfig.apiUrl}/account`)
             .map(data => data);
     }
 
     getById(id: string) {
         return this
             .httpClient
-            .get<Account>(`${AppConfig.apiUrl}/account/${id}`, { observe: 'body' })
+            .get<Account>(`${AppConfig.apiUrl}/account/${id}`)
             .map(data => data);
     }
 

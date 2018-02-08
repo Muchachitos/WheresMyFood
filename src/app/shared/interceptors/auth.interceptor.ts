@@ -9,9 +9,13 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor(private authService: AuthService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-        req.headers.append('Authorization', `Bearer ${this.authService.getToken()}`);
-        req.headers.append('Access-Control-Allow-Origin', AppConfig.clientUrl);
-        req.headers.append('Access-Control-Allow-Credentials', 'true');
+        req = req.clone({
+            setHeaders: {
+                'Access-Control-Allow-Origin': AppConfig.clientUrl,
+                'Access-Control-Allow-Credentials': 'true',
+                'Authorization': `Bearer ${this.authService.getToken()}`
+            }
+        });
         return next.handle(req);
     }
 }
