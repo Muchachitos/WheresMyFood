@@ -16,12 +16,12 @@ export class MealsListService {
 
         return this
             .httpClient
-            .get<any>(`${AppConfig.apiUrl}/data/meals?pageNumber=${pageNumber}&toTake=${itemsToTake}`, { observe: 'body' })
+            .get<MealModel[]>(`${AppConfig.apiUrl}/data/meals?pageNumber=${pageNumber}&toTake=${itemsToTake}`)
             .map(data => {
                 this.storageService.addToList(pageNumber, data);
                 return data;
             })
-            .catch((error: Response) => {
+            .catch(error => {
                 return Observable.throw(error);
             });
     }

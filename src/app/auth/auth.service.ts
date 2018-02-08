@@ -1,8 +1,8 @@
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
 import { AppConfig } from "../app.config";
-import { Subject } from "rxjs";
-import { HttpClient, HttpResponse } from "@angular/common/http";
 
 @Injectable()
 export class AuthService {
