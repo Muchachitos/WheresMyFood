@@ -1,8 +1,8 @@
 import { Component, Input, EventEmitter } from "@angular/core";
-import { MealModel } from "./meal.model";
-import { DailyMealListService } from "../daily-meal-list.service";
-import { OrdersService } from "../../../orders/orders.service";
 import { Router } from "@angular/router";
+
+import { OrdersService } from "../../../orders/orders.service";
+import { MealModel } from "./meal.model";
 
 @Component({
     selector: 'app-meal',

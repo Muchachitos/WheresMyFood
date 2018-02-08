@@ -1,10 +1,10 @@
-import { MealsListMetaModel } from "./daily-meal-list-meta.model";
-import { MealModel } from "./meal/meal.model";
 import { Subject } from "rxjs/Subject";
 import { OnDestroy } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { MealsListMetaModel } from "./meal-list/meal-list-meta.model";
+import { MealModel } from "./meal/meal.model";
 
-export class DailyMealLocalStorageService implements OnDestroy {
+export class MealsLocalStorageService implements OnDestroy {
     private internalList: { pageNumber: number, onCurrentPage: boolean, array: MealModel[] }[];
     private meta: MealsListMetaModel;
     private mealList: Subject<MealModel[]>;

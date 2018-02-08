@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { DailyMealLocalStorageService } from "../meals/daily-list/daily-meal-local-storage.service";
+import { MealsLocalStorageService } from "../meals/daily-list/meals-local-storage.service";
 
 @Injectable()
 export class OrdersService {
-    constructor(private mealStorageService: DailyMealLocalStorageService) { }
+    constructor(private mealStorageService: MealsLocalStorageService) { }
 
     public order(obj: { mealId: number, userId: number }) {
         this.mealStorageService.markMealOrdered(obj.mealId);

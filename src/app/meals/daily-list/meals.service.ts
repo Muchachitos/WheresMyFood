@@ -1,17 +1,16 @@
 import { MealModel } from "./meal/meal.model";
 import { Injectable } from "@angular/core";
-import { MealsListMetaModel } from "./daily-meal-list-meta.model";
 import { Http, Response, Headers } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { DailyMealLocalStorageService } from "./daily-meal-local-storage.service";
 import { AppConfig } from "../../app.config";
+import { MealsLocalStorageService } from "./meals-local-storage.service";
 import 'rxjs/Rx';
 
 @Injectable()
-export class DailyMealListService {
+export class MealsListService {
     private headers: Headers;
 
-    constructor(private http: Http, private storageService: DailyMealLocalStorageService) {
+    constructor(private http: Http, private storageService: MealsLocalStorageService) {
         this.headers = new Headers();
         this.headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
         this.headers.append('Access-Control-Allow-Credentials', 'true');

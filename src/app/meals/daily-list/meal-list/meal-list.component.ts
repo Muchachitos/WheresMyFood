@@ -1,23 +1,24 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { MealModel } from "./meal/meal.model";
-import { DailyMealListService } from "./daily-meal-list.service";
 import { ActivatedRoute, Data } from "@angular/router";
-import { MealsListMetaModel } from "./daily-meal-list-meta.model";
-import { PaginationModel } from "../../shared/components/pagination/pagination.model";
-import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
-import { DailyMealLocalStorageService } from "./daily-meal-local-storage.service";
-import { AuthService } from "../../auth/auth.service";
+
+import { MealsListService } from "../meals.service";
+import { MealsLocalStorageService } from "../meals-local-storage.service";
+import { AuthService } from "../../../auth/auth.service";
+
+import { PaginationModel } from "../../../shared/components/pagination/pagination.model";
+import { MealModel } from "../meal/meal.model";
+import { MealsListMetaModel } from "./meal-list-meta.model";
 
 @Component({
-    selector: 'app-daily-meal-list',
-    templateUrl: './daily-meal-list.component.html',
-    styleUrls: ['./daily-meal-list.component.css']
+    selector: 'app-meal-list',
+    templateUrl: './meal-list.component.html',
+    styleUrls: ['./meal-list.component.css']
     // if we add service to the providers here each time the component is created it will have new service
     // to avoid that if we only need one instace than we register that service in app.module
 })
 
-export class DailyMealListComponent implements OnInit, OnDestroy {
+export class MealListComponent implements OnInit, OnDestroy {
     private list: MealModel[];
     private meta: MealsListMetaModel;
     private canMakeOrder: boolean;
@@ -28,7 +29,7 @@ export class DailyMealListComponent implements OnInit, OnDestroy {
     private routeDataSubscription: Subscription;
     private loginSubscription: Subscription;
 
-    constructor(private mealsService: DailyMealListService, private mealStorage: DailyMealLocalStorageService, private route: ActivatedRoute, private authService: AuthService) {
+    constructor(private mealsService: MealsListService, private mealStorage: MealsLocalStorageService, private route: ActivatedRoute, private authService: AuthService) {
         this.list = [];
         this.currentPage = 1;
         this.isUserLoggedIn = this.authService.isAuthenticated();

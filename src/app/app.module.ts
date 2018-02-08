@@ -8,7 +8,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { DailyMealListComponent } from './meals/daily-list/daily-meal-list.component';
+import { MealListComponent } from './meals/daily-list/meal-list/meal-list.component';
 import { MealComponent } from './meals/daily-list/meal/meal.component';
 import { MealDetailComponent } from './meals/daily-list/meal-detail/meal-detail.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -26,10 +26,10 @@ import { LoggingService } from './shared/services/logging.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 
-import { DailyMealListService } from './meals/daily-list/daily-meal-list.service';
+import { MealsListService } from './meals/daily-list/meals.service';
 import { MealDetailResolverService } from './meals/daily-list/meal-detail/meal-detail-resolver.service';
-import { DailyMealListResolverService } from './meals/daily-list/daily-meal-list-resolver.service';
-import { DailyMealLocalStorageService } from './meals/daily-list/daily-meal-local-storage.service';
+import { MealListResolverService } from './meals/daily-list/meal-list/meal-list-resolver.service';
+import { MealsLocalStorageService } from './meals/daily-list/meals-local-storage.service';
 
 import { OrdersService } from './orders/orders.service';
 
@@ -41,7 +41,7 @@ import { AccountService } from './auth/account/account.service';
   declarations: [
     AppComponent,
     HeaderComponent,
-    DailyMealListComponent,
+    MealListComponent,
     MealComponent,
     MealDetailComponent,
     OrdersComponent,
@@ -67,10 +67,10 @@ import { AccountService } from './auth/account/account.service';
     LoggingService,
     AuthService,
     AuthGuardService,
-    DailyMealListService,
+    MealsListService,
     MealDetailResolverService,
-    DailyMealListResolverService,
-    DailyMealLocalStorageService,
+    MealListResolverService,
+    MealsLocalStorageService,
 
     OrdersService,
     AlertService,
