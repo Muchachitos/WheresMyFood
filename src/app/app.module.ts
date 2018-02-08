@@ -40,7 +40,7 @@ import { LoggingService } from './shared/services/logging.service';
     AuthModule,
     OrdersModule,
     SharedModule,
-    AppRoutingModule // ako ima forRoot i forChild modul sa forRoot mora biti ovde poslednje naveden kako bi pre toga uvezao child putanje
+    AppRoutingModule // routing module koji u sebi ima putanju '*' mora da bude naveden kao poslednji routing modul u imports-ima
   ],
   providers: [
     LoggingService,
