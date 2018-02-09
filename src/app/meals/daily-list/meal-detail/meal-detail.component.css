@@ -5,3 +5,9 @@ tbody>tr:hover {
 tbody>tr {
   height: 3em;
 }
+
+.image-button{
+  position:relative; 
+  bottom:2.5em;
+  right: 0.5em;
+}

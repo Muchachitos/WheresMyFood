@@ -1,4 +1,4 @@
-<div class="thumbnail zoom" [conditionalClass]="{ condition: itemIsOrdered, apply: 'highlighted-thumbnail'}">
+<div class="thumbnail zoom">
   <img class="img-responsive pointer" [routerLink]="['/meal-list', item.id ]" [src]="item.image" alt="{{item.name }}" />
   <div class="caption">
     <h4 class="item-name">{{ item.name }}</h4>

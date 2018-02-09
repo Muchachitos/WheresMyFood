@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { MealDetailModel } from "./meal-detail.model";
+import { MealDetailModel, UserOrder } from "./meal-detail.model";
 import { ActivatedRoute, Data } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import {
@@ -7,7 +7,8 @@ import {
     transition,
     animate,
     keyframes,
-    style
+    style,
+    state
 } from '@angular/animations';
 
 @Component({
@@ -18,11 +19,11 @@ import {
         trigger('ordersListAnimation', [
             transition('void => *', [
                 animate('0.5s 0.6s ease-in', keyframes([
-                    style({ opacity: 0.55, transform: 'translateY(-40%)', offset: 0 }),
+                    style({ opacity: 0.55, transform: 'translateY(-50%)', offset: 0 }),
                     style({ opacity: 0.6, transform: 'translateY(-20%)', offset: 0.08 }),
                     style({ opacity: 0.9, transform: 'translateY(-10%)', offset: 0.2 }),
                     style({ opacity: 0.9, transform: 'translateY(0)', offset: 0.3 }),
-                    style({ opacity: 1, transform: 'translateY(10px)', offset: 0.5 }),
+                    style({ opacity: 1, transform: 'translateY(0)', offset: 0.5 }),
                     style({ opacity: 1, transform: 'translateY(0)', offset: 1.0 })
                 ]))
             ])
@@ -30,12 +31,36 @@ import {
         trigger('descriptonAnimation', [
             transition('void => *', [
                 animate('0.5s 0.6s ease-in', keyframes([
-                    style({ opacity: 0.55, transform: 'translateX(-10%)', offset: 0 }),
+                    style({ opacity: 0.55, transform: 'translateX(-20%)', offset: 0 }),
                     style({ opacity: 0.6, transform: 'translateX(-5%)', offset: 0.08 }),
                     style({ opacity: 0.9, transform: 'translateX(-2%)', offset: 0.2 }),
                     style({ opacity: 0.9, transform: 'translateX(0)', offset: 0.3 }),
-                    style({ opacity: 1, transform: 'translateX(10px)', offset: 0.5 }),
+                    style({ opacity: 1, transform: 'translateX(0)', offset: 0.5 }),
                     style({ opacity: 1, transform: 'translateX(0)', offset: 1.0 })
+                ]))
+            ])
+        ]),
+        trigger('orderAnimation', [
+            state('true', style({
+                borderColor: '#0bc4a5',
+                backgroundColor: '#0bc4a5'
+            })),
+            transition('true => false', [
+                animate('0.1s ease-in', keyframes([
+                    style({ opacity: 1, transform: 'translateX(0) scale(1)', offset: 0 }),
+                    style({ opacity: 0.5, transform: 'translateX(0) scale(0.4)', offset: 0.5 }),
+                    style({ opacity: 0, transform: 'translateX(0) scale(0)', offset: 1.0 })
+                ]))
+            ]),
+            state('false', style({
+                borderColor: '#eb626d',
+                backgroundColor: '#eb626d'
+            })),
+            transition('false => true', [
+                animate('0.1s ease-in', keyframes([
+                    style({ opacity: 1, transform: 'translateX(0) scale(1)', offset: 0 }),
+                    style({ opacity: 0.5, transform: 'translateX(0) scale(0.4)', offset: 0.5 }),
+                    style({ opacity: 0, transform: 'translateX(0) scale(0)', offset: 1.0 })
                 ]))
             ])
         ])
@@ -46,7 +71,22 @@ export class MealDetailComponent implements OnInit, OnDestroy {
     private item: MealDetailModel;
     private routeSubscription: Subscription;
 
-    constructor(private route: ActivatedRoute) { }
+    constructor(private route: ActivatedRoute) {
+    }
+
+    private orderForSomeone(userOrder: UserOrder, index: number) {
+        console.log(index);
+        const ind = this.item.orderList.findIndex(x => x.userId == userOrder.userId);
+        if (!this.item.orderList[index].hasOrdered || (this.item.orderList[index].hasOrdered) && this.item.orderList[index].loggedInUserOrdered) {
+            this.item.orderList[index].hasOrdered = !this.item.orderList[index].hasOrdered;
+            this.item.orderList[index].loggedInUserOrdered = !this.item.orderList[index].loggedInUserOrdered;
+        }
+    }
+
+
+    private order() {
+        this.item.isOrdered = !this.item.isOrdered;
+    }
 
     ngOnInit(): void {
         this.routeSubscription =

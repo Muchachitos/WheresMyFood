@@ -1,16 +1,20 @@
+:focus{
+	outline: none !important;
+}
+
 body {
     position: relative;
     margin: 0;
     min-height: 100%;
   }
   
-  .btn.btn-circle.btn-xl {
-    width: 70px;
-    height: 70px;
-    padding: 10px 16px;
+  .btn.btn-circle.btn-md {
+    width: 40px;
+    height: 40px;
+    padding: 8px 8px;
     border-radius: 35px;
-    font-size: 24px;
-    line-height: 1.33;
+    font-size: 20px;
+    line-height: 1.13;
   }
   
   .btn.btn-circle {

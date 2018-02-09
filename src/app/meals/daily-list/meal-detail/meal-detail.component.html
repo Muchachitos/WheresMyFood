@@ -2,6 +2,10 @@
   <div class="col-md-4">
     <div class="thumbnail" [@descriptonAnimation]>
       <img class="img-responsive pointer" [src]="item.image" alt="{{ item.name }}" />
+      <button type="button" [@orderAnimation]="!item.isOrdered" class="btn btn-success btn-md btn-circle float-right image-button"
+        (click)="order()">
+        <i class="glyphicon" [conditionalClass]="{ condition: item.isOrdered, apply: 'glyphicon-remove', else: 'glyphicon-ok'}"></i>
+      </button>
       <div class="caption">
         <h4 class="item-name">
           <b>{{ item.name }}</b>
@@ -22,13 +26,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of item.orderList" [@ordersListAnimation]>
+        <tr *ngFor="let order of item.orderList; let i = index" [@ordersListAnimation]>
           <td>{{order.firstName}}</td>
           <td>{{order.lastName}}</td>
           <td>{{order.lastTimeOrdered | date:'dd.MM.yyyy'}}</td>
           <td>
-            <button *ngIf="!order.hasOrdered" class="btn btn-success btn-circle">
-              <i class="glyphicon glyphicon-ok"></i>
+            <button *ngIf="(!order.hasOrdered && !order.loggedInUserOrdered) || (order.hasOrdered && order.loggedInUserOrdered)" class="btn btn-success btn-circle"
+              (click)="orderForSomeone(order, i)" [@orderAnimation]="!order.hasOrdered && !order.loggedInUserOrdered">
+              <i class="glyphicon" [conditionalClass]="{ condition: order.hasOrdered && order.loggedInUserOrdered, apply: 'glyphicon-remove', else: 'glyphicon-ok'}"></i>
             </button>
           </td>
         </tr>

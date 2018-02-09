@@ -1,5 +1,5 @@
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { MealDetailModel, OrderList } from "./meal-detail.model";
+import { MealDetailModel } from "./meal-detail.model";
 import { Observable } from "rxjs/Observable";
 import { HttpClient } from "@angular/common/http";
 import { AppConfig } from "../../../app.config";

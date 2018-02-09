@@ -23,7 +23,7 @@ import { MealsListMetaModel } from "./meal-list-meta.model";
                     style({ opacity: 0.6, transform: 'translateX(-40%)', offset: 0.08 }),
                     style({ opacity: 0.9, transform: 'translateX(-20%)', offset: 0.2 }),
                     style({ opacity: 0.9, transform: 'translateX(-10%)', offset: 0.3 }),
-                    style({ opacity: 1, transform: 'translateX(10px)', offset: 0.5 }),
+                    style({ opacity: 1, transform: 'translateX(0)', offset: 0.5 }),
                     style({ opacity: 1, transform: 'translateX(0)', offset: 1.0 })
                 ]))
             ]),

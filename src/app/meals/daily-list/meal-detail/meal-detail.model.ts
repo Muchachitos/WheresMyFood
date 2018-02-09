@@ -4,16 +4,19 @@ export class MealDetailModel {
     public description: string;
     public image: string;
     public isOrdered: boolean;
-    public orderList: OrderList[];
+    public orderList: UserOrder[];
 
     constructor() {
         this.orderList = [];
     }
 }
 
-export class OrderList {
+export class UserOrder {
+    public userId: number;
+    public orderId?: number;
     public firstName: string;
     public lastName: string;
     public lastTimeOrdered: Date;
+    public loggedInUserOrdered: boolean;
     public hasOrdered: boolean;
 }
