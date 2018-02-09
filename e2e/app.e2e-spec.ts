@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('wheres-my-soup App', () => {
+describe('new-angular-cli App', () => {
   let page: AppPage;
 
   beforeEach(() => {
