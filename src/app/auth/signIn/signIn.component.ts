@@ -35,7 +35,7 @@ export class SignInComponent implements OnInit {
                     this.alertService.error('We are having issues with our server currently please try again later.');
                 }
                 else {
-                    this.alertService.error(error.statusText);
+                    console.log(error);
                 }
             });
     }

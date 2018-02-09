@@ -56,8 +56,8 @@ export class MealsLocalStorageService implements OnDestroy {
 
     public addToList(pageNumber: number, array: MealModel[]) {
         const pageListIndex = this.internalList.findIndex(x => x.pageNumber == pageNumber);
-
         if (pageListIndex == -1) {
+            this.internalList.forEach(x => x.onCurrentPage = false);
             this.internalList.push({ pageNumber: pageNumber, onCurrentPage: true, array: array });
         } else {
             this.internalList[pageListIndex].array = array;

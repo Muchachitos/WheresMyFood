@@ -17,7 +17,7 @@ export class AuthService {
     }
 
     getToken() {
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         return currentUser != null ? currentUser.token : null;
     }
 
@@ -50,5 +50,4 @@ export class AuthService {
     onUserLoggedIn(): Observable<{ firstName: string, lastName: string, email: string }> {
         return this.userSubject.asObservable();
     }
-
 }

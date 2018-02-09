@@ -17,11 +17,6 @@
     font-size: 0.8em;
 }
 
-.heart-ordered{
-    transition: background-color .3s;    
-    color: rgb(250, 32, 32);
-}
-
 .button-panel{
     width:100%; min-height: 2.2em;
 }

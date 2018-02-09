@@ -5,11 +5,12 @@
     <p class="item-decription">{{ item.description }}</p>
     <div class="bottom-display">
       <div class="button-panel">
-        <button *ngIf="canMakeOrder; else cancelOrder" class="btn btn-circle" (click)="order(item)" [disabled]="!canMakeOrder" [conditionalClass]="{ condition: canMakeOrder, apply: 'btn-success'}">
+        <button *ngIf="canMakeOrder; else cancelOrder" [@orderAnimateButton] class="btn btn-circle" (click)="order(item)" [disabled]="!canMakeOrder"
+          [conditionalClass]="{ condition: canMakeOrder, apply: 'btn-success'}">
           <i class="glyphicon glyphicon-ok"></i>
         </button>
         <div class="heart-section">
-          <span class="glyphicon glyphicon-heart" [conditionalClass]="{ condition: item.isOrdered, apply: 'heart-ordered'}">
+          <span class="glyphicon glyphicon-heart" [@heartAnimation]="item.isOrdered">
           </span>
           <span class="number">{{ item.numberOfOrders }}</span>
         </div>
@@ -19,7 +20,7 @@
 </div>
 
 <ng-template #cancelOrder>
-  <button class="btn btn-circle btn-danger" *ngIf="item.isOrdered" (click)="cancel(item)">
+  <button class="btn btn-circle btn-danger" [@orderAnimateButton] *ngIf="item.isOrdered" (click)="cancel(item)">
     <i class="glyphicon glyphicon-remove"></i>
   </button>
 </ng-template>

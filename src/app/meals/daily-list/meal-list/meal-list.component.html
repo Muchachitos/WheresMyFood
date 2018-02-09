@@ -1,5 +1,5 @@
 <div class="row row-min-height">
-  <div class="col-sm-3" *ngFor="let meal of list">
+  <div class="col-sm-3" [@mealCardAnimation] *ngFor="let meal of list">
     <app-meal [canMakeOrder]="canMakeOrder" [item]="meal" [isUserLoggedIn]="isUserLoggedIn"></app-meal>
   </div>
 </div>

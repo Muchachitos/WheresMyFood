@@ -7,9 +7,7 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class MealDetailResolverService implements Resolve<MealDetailModel>{
-    constructor(private httpClient: HttpClient) {
-
-    }
+    constructor(private httpClient: HttpClient) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<MealDetailModel> | Promise<MealDetailModel> | MealDetailModel {
         let id = +route.params['id']; // + is used for casting to integer
@@ -18,6 +16,7 @@ export class MealDetailResolverService implements Resolve<MealDetailModel>{
                 .httpClient
                 .get<MealDetailModel>(`${AppConfig.apiUrl}/data/meals/${id}`)
                 .map(data => data)
+                .catch(error => Observable.of(error))
                 .toPromise()));
     }
 }

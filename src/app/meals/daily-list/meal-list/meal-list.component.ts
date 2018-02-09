@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Data } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
+import { trigger, transition, keyframes, style, animate } from '@angular/animations';
 
 import { MealsListService } from "../meals.service";
 import { MealsLocalStorageService } from "../meals-local-storage.service";
@@ -13,7 +14,29 @@ import { MealsListMetaModel } from "./meal-list-meta.model";
 @Component({
     selector: 'app-meal-list',
     templateUrl: './meal-list.component.html',
-    styleUrls: ['./meal-list.component.css']
+    styleUrls: ['./meal-list.component.css'],
+    animations: [
+        trigger('mealCardAnimation', [
+            transition('void => *', [
+                animate('0.5s 0.6s ease-in', keyframes([
+                    style({ opacity: 0.55, transform: 'translateX(-100%)', offset: 0 }),
+                    style({ opacity: 0.6, transform: 'translateX(-40%)', offset: 0.08 }),
+                    style({ opacity: 0.9, transform: 'translateX(-20%)', offset: 0.2 }),
+                    style({ opacity: 0.9, transform: 'translateX(-10%)', offset: 0.3 }),
+                    style({ opacity: 1, transform: 'translateX(10px)', offset: 0.5 }),
+                    style({ opacity: 1, transform: 'translateX(0)', offset: 1.0 })
+                ]))
+            ]),
+            transition('* => void', [
+                style({ height: 0, width: 0, opacity: 0, visibility: 'hidden' }),
+                animate('0.3s ease-out', keyframes([
+                    style({ opacity: 1, transform: 'translateX(0)', offset: 0 }),
+                    style({ opacity: 0.4, transform: 'translateX(-15px)', offset: 0.3 }),
+                    style({ opacity: 0, transform: 'translateX(100%)', offset: 1.0 })
+                ]))
+            ])
+        ])
+    ]
     // if we add service to the providers here each time the component is created it will have new service
     // to avoid that if we only need one instace than we register that service in app.module
 })

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-4">
-    <div class="thumbnail">
+    <div class="thumbnail" [@descriptonAnimation]>
       <img class="img-responsive pointer" [src]="item.image" alt="{{ item.name }}" />
       <div class="caption">
         <h4 class="item-name">
@@ -14,7 +14,7 @@
   <div class="col-md-8">
     <table class="table">
       <thead>
-        <tr>
+        <tr [@descriptonAnimation]>
           <th>First name</th>
           <th>Last name</th>
           <th>Last order</th>
@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of item.orderList">
+        <tr *ngFor="let order of item.orderList" [@ordersListAnimation]>
           <td>{{order.firstName}}</td>
           <td>{{order.lastName}}</td>
           <td>{{order.lastTimeOrdered | date:'dd.MM.yyyy'}}</td>
