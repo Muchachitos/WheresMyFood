@@ -2,8 +2,8 @@
   <div class="col-md-4">
     <div class="thumbnail" [@descriptonAnimation]>
       <img class="img-responsive pointer" [src]="item.image" alt="{{ item.name }}" />
-      <button type="button" [@orderAnimation]="!item.isOrdered" class="btn btn-success btn-md btn-circle float-right image-button"
-        (click)="order()">
+      <button type="button" [@orderButtonAnimation]="!item.isOrdered" class="btn btn-success btn-md btn-circle float-right image-button"
+        [conditionalClass]="{ condition: !item.isOrdered, apply: 'btn-success', else: 'btn-danger'}" (click)="order()">
         <i class="glyphicon" [conditionalClass]="{ condition: item.isOrdered, apply: 'glyphicon-remove', else: 'glyphicon-ok'}"></i>
       </button>
       <div class="caption">
@@ -31,8 +31,9 @@
           <td>{{order.lastName}}</td>
           <td>{{order.lastTimeOrdered | date:'dd.MM.yyyy'}}</td>
           <td>
-            <button *ngIf="(!order.hasOrdered && !order.loggedInUserOrdered) || (order.hasOrdered && order.loggedInUserOrdered)" class="btn btn-success btn-circle"
-              (click)="orderForSomeone(order, i)" [@orderAnimation]="!order.hasOrdered && !order.loggedInUserOrdered">
+            <button *ngIf="(!order.hasOrdered && !order.loggedInUserOrdered) || (order.hasOrdered && order.loggedInUserOrdered)" class="btn btn-circle"
+              [conditionalClass]="{ condition: order.hasOrdered && order.loggedInUserOrdered, apply: 'btn-danger', else: 'btn-success'}"
+              (click)="orderForSomeone(order, i)" [@orderButtonAnimation]="!order.hasOrdered && !order.loggedInUserOrdered">
               <i class="glyphicon" [conditionalClass]="{ condition: order.hasOrdered && order.loggedInUserOrdered, apply: 'glyphicon-remove', else: 'glyphicon-ok'}"></i>
             </button>
           </td>
@@ -41,11 +42,3 @@
     </table>
   </div>
 </div>
-
-
-
-<ng-template #cancelOrder>
-  <button class="btn btn-circle btn-danger" *ngIf="item.isOrdered" (click)="cancel(item)">
-    <i class="glyphicon glyphicon-remove"></i>
-  </button>
-</ng-template>

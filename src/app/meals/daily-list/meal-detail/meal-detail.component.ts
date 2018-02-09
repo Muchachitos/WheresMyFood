@@ -40,11 +40,7 @@ import {
                 ]))
             ])
         ]),
-        trigger('orderAnimation', [
-            state('true', style({
-                borderColor: '#0bc4a5',
-                backgroundColor: '#0bc4a5'
-            })),
+        trigger('orderButtonAnimation', [
             transition('true => false', [
                 animate('0.1s ease-in', keyframes([
                     style({ opacity: 1, transform: 'translateX(0) scale(1)', offset: 0 }),
@@ -52,10 +48,6 @@ import {
                     style({ opacity: 0, transform: 'translateX(0) scale(0)', offset: 1.0 })
                 ]))
             ]),
-            state('false', style({
-                borderColor: '#eb626d',
-                backgroundColor: '#eb626d'
-            })),
             transition('false => true', [
                 animate('0.1s ease-in', keyframes([
                     style({ opacity: 1, transform: 'translateX(0) scale(1)', offset: 0 }),
