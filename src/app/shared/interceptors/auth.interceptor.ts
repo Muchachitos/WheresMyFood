@@ -35,7 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     if (error instanceof HttpErrorResponse) {
                         if (error.status == 401) {
                             this.router.navigate(['/auth/signin']);
-                            this.alertService.warning('Token has expired. You have been logged out.');
+                            //this.alertService.warning('Token has expired. You have been logged out.');
                         }
                     }
                 });
