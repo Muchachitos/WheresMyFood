@@ -67,7 +67,6 @@ export class MealDetailComponent implements OnInit, OnDestroy {
     }
 
     private orderForSomeone(userOrder: UserOrder, index: number) {
-        console.log(index);
         const ind = this.item.orderList.findIndex(x => x.userId == userOrder.userId);
         if (!this.item.orderList[index].hasOrdered || (this.item.orderList[index].hasOrdered) && this.item.orderList[index].loggedInUserOrdered) {
             this.item.orderList[index].hasOrdered = !this.item.orderList[index].hasOrdered;
