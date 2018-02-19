@@ -31,18 +31,20 @@ export class SignUpComponent implements OnInit {
         if (!this.signupForm.valid) return;
         this.accountService
             .create(
-            {
-                id: 0,
-                firstName: this.signupForm.value.firstname,
-                lastName: this.signupForm.value.lastname,
-                email: this.signupForm.value.email,
-                password: this.signupForm.value.password
-            })
-            .subscribe(data => {
-                this.alertService.success('Registration successful');
+                {
+                    id: 0,
+                    firstName: this.signupForm.value.firstname,
+                    lastName: this.signupForm.value.lastname,
+                    email: this.signupForm.value.email,
+                    password: this.signupForm.value.password
+                })
+            .subscribe((data: any) => {
+                this.alertService.info('Registration sent');
                 this.router.navigate(['/auth/signin']);
-            }, error => {
-                this.alertService.error('Failed to register.');
+            }, data => {
+                for (let e in data.error) {
+                    this.alertService.error(data.error[e]);
+                }
             });
     }
 
