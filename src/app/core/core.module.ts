@@ -13,6 +13,7 @@ import { AlertService } from "../shared/services/alert.service";
 import { AccountService } from "../auth/account/account.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "../shared/interceptors/auth.interceptor";
+import { SignalRService } from "../shared/services/signalR.service";
 
 @NgModule({
     declarations: [
@@ -31,6 +32,7 @@ import { AuthInterceptor } from "../shared/interceptors/auth.interceptor";
         OrdersService,
         AlertService,
         AccountService,
+        SignalRService,
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
     exports: [

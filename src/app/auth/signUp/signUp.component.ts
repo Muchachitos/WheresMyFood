@@ -1,21 +1,25 @@
-import { Component, ElementRef, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormGroup, FormControl, Validators, AbstractControl } from "@angular/forms";
 import { EmailValidator } from "@angular/forms/src/directives/validators";
 import { AccountService } from "../account/account.service";
 import { AlertService } from "../../shared/services/alert.service";
+import { SignalRService } from "../../shared/services/signalR.service";
+import { Subscription, Observer } from "rxjs";
 
 @Component({
     selector: 'app-signUp',
     templateUrl: './signUp.component.html'
 })
 
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
     private signupForm: FormGroup;
+    private userRegisteredSubscription: Subscription;
 
     constructor(private router: Router,
         private accountService: AccountService,
-        private alertService: AlertService) { }
+        private alertService: AlertService,
+        private signalRService: SignalRService) { }
 
     ngOnInit(): void {
         this.signupForm = new FormGroup({
@@ -25,6 +29,25 @@ export class SignUpComponent implements OnInit {
             password: new FormControl(null, Validators.required),
             confirmPassword: new FormControl(null, [Validators.required, this.validatePassword.bind(this)])
         });
+
+        this.userRegisteredSubscription =
+            this.signalRService
+                .onUserRegistered()
+                .subscribe((userRegistered: boolean) => {
+                    if (userRegistered) {
+                        this.alertService.success('Registration succeeded!');
+                        this.router.navigate(['/auth/signin']);
+                    }
+                }, data => {
+                    for (let e in data.error) {
+                        this.alertService.error(data.error[e]);
+                    }
+                });
+    }
+
+    ngOnDestroy(): void {
+        if (!!this.userRegisteredSubscription)
+            this.userRegisteredSubscription.unsubscribe();
     }
 
     private onSubmit() {
@@ -39,8 +62,6 @@ export class SignUpComponent implements OnInit {
                     password: this.signupForm.value.password
                 })
             .subscribe((data: any) => {
-                this.alertService.info('Registration sent');
-                this.router.navigate(['/auth/signin']);
             }, data => {
                 for (let e in data.error) {
                     this.alertService.error(data.error[e]);
