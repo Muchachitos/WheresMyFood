@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../auth.service";
 import { AlertService } from "../../shared/services/alert.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
     selector: 'app-signIn',
@@ -27,9 +28,12 @@ export class SignInComponent implements OnInit {
                 if (status == 200) {
                     this.router.navigate([this.returnUrl]);
                 }
-            }, (error: Response) => {
+            }, (error: HttpErrorResponse) => {
                 if (error.status == 401) {
                     this.alertService.error('Email does not exist or is already taken.');
+                }
+                else if (error.status == 404) {
+                    this.alertService.error(error.error);
                 }
                 else if (error.status == 500) {
                     this.alertService.error('We are having issues with our server currently please try again later.');

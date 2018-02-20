@@ -13,6 +13,17 @@ export class SignalRService {
         this.userRegistered = new Subject();
         this.hubConnection = new HubConnection(`${AppConfig.apiUrl}/notifyHub`);
 
+        this.hubConnection.onclose((error: Error) => {
+            var counter: any = 0;
+            setTimeout(() => {
+                if (counter == 5) return;
+
+                console.log('trying to recconect');
+                this.startConnection();
+                counter++;
+            }, 5000);
+        });
+
         this.registerServerEvents();
         this.startConnection();
     }

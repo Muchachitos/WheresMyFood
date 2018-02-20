@@ -25,10 +25,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
         this.signupForm = new FormGroup({
             firstname: new FormControl(null, Validators.required),
             lastname: new FormControl(null, Validators.required),
-            email: new FormControl(null, [Validators.required, Validators.email]),
-            password: new FormControl(null, Validators.required),
-            confirmPassword: new FormControl(null, [Validators.required, this.validatePassword.bind(this)])
-        });
+            email: new FormControl(null, [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
+            password: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z0-9]{6,100}$')]),
+            confirmPassword: new FormControl(null, [Validators.required])
+        }, {
+                validators: this.validatePassword.bind(this)
+            });
 
         this.userRegisteredSubscription =
             this.signalRService
@@ -73,9 +75,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
         this.router.navigate(['/']);
     }
 
-    private validatePassword(control: AbstractControl): { [key: string]: any; } {
-        if ((control.parent != undefined && control.parent.controls != undefined)
-            && control.parent.controls['password'].value != control.value) {
+    private validatePassword(fromGroup: FormGroup): { [key: string]: any; } {
+        if (fromGroup.controls['password'].value != fromGroup.controls['confirmPassword'].value) {
             return { invalidPass: true };
         }
         return null;
