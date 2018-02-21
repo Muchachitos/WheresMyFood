@@ -10,32 +10,26 @@ export class AccountService {
     getAll() {
         return this
             .httpClient
-            .get<Account[]>(`${AppConfig.apiUrl}/account`)
+            .get<Account[]>(`${AppConfig.apiUrl}/user`)
             .map(data => data);
     }
 
     getById(id: string) {
         return this
             .httpClient
-            .get<Account>(`${AppConfig.apiUrl}/account/${id}`)
+            .get<Account>(`${AppConfig.apiUrl}/user/${id}`)
             .map(data => data);
-    }
-
-    create(user: Account) {
-        return this
-            .httpClient
-            .post(`${AppConfig.apiUrl}/account/register`, user);
     }
 
     update(user: Account) {
         return this
             .httpClient
-            .put(`${AppConfig.apiUrl}/account/${user.id}`, user);
+            .put(`${AppConfig.apiUrl}/user/${user.id}`, user);
     }
 
     delete(id: number) {
         return this
             .httpClient
-            .delete(`${AppConfig.apiUrl}/account/${id}`);
+            .delete(`${AppConfig.apiUrl}/user/${id}`);
     }
 }

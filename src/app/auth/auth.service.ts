@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { AppConfig } from "../app.config";
+import { Auth } from "./auth.model";
 
 @Injectable()
 export class AuthService {
@@ -24,7 +25,7 @@ export class AuthService {
     login(email: string, password: string) {
         return this
             .httpClient
-            .post(`${AppConfig.apiUrl}/account/authenticate`, { email: email, password: password }, { observe: 'response' })
+            .post(`${AppConfig.apiUrl}/auth/authenticate`, { email: email, password: password }, { observe: 'response' })
             .map((response: HttpResponse<{ id: number, firstName: string, lastName: string, email: string, token: string }>) => {
                 if (response && response.body && response.body.token) {
                     localStorage.setItem('currentUser', JSON.stringify(response.body));
@@ -33,6 +34,14 @@ export class AuthService {
                 return response.status;
             });
     }
+
+
+    register(user: Auth) {
+        return this
+            .httpClient
+            .post(`${AppConfig.apiUrl}/auth/register`, user);
+    }
+
 
     logout() {
         localStorage.removeItem('currentUser');
