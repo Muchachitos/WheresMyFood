@@ -29,15 +29,16 @@ export class AuthInterceptor implements HttpInterceptor {
                 'Authorization': `Bearer ${this.authService.getToken()}`
             }
         });
+
         return next.handle(req)
             .do((event: HttpEvent<any>) => { },
-            (error: any) => {
-                if (error instanceof HttpErrorResponse) {
-                    if (error.status == 401) {
-                        this.router.navigate(['/auth/signin']);
-                        //this.alertService.warning('Token has expired. You have been logged out.');
+                (error: any) => {
+                    if (error instanceof HttpErrorResponse) {
+                        if (error.status == 401) {
+                            this.router.navigate(['/auth/signin']);
+                            //this.alertService.warning('Token has expired. You have been logged out.');
+                        }
                     }
-                }
-            });
+                });
     }
 }

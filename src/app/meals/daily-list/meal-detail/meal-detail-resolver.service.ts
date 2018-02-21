@@ -11,6 +11,7 @@ export class MealDetailResolverService implements Resolve<MealDetailModel>{
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<MealDetailModel> | Promise<MealDetailModel> | MealDetailModel {
         let id = +route.params['id']; // + is used for casting to integer
+
         return new Promise((resolve, reject) =>
             resolve(this
                 .httpClient
