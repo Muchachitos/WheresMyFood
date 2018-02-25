@@ -1,5 +1,5 @@
 export class MealModel {
-    public id: number;
+    public id: string;
     public name: string;
     public description: string;
     public image: string;

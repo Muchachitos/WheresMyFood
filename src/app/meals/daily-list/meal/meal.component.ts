@@ -4,6 +4,8 @@ import { trigger, style, transition, animate, keyframes, state } from '@angular/
 
 import { OrdersService } from "../../../orders/orders.service";
 import { MealModel } from "./meal.model";
+import { HttpErrorResponse } from "@angular/common/http";
+import { AlertService } from "../../../shared/services/alert.service";
 
 @Component({
     selector: 'app-meal',
@@ -61,14 +63,19 @@ export class MealComponent {
     @Input() canMakeOrder: boolean;
     @Input() isUserLoggedIn: boolean;
 
-    constructor(private ordersService: OrdersService, private router: Router) { }
+    constructor(private ordersService: OrdersService,
+        private router: Router,
+        private alertService: AlertService) { }
 
     order(item: MealModel) {
         if (!this.isUserLoggedIn) {
             this.router.navigate(['/auth/signin']);
             return;
         }
-        this.ordersService.order({ mealId: item.id, userId: 1 });
+        this.ordersService.order({ mealId: item.id })
+            .subscribe(
+                () => { },
+                (response: HttpErrorResponse) => { this.alertService.error(response.error); });
     }
 
     cancel(item: MealModel) {

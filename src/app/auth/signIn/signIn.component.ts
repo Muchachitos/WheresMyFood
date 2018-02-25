@@ -29,17 +29,11 @@ export class SignInComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 }
             }, (error: HttpErrorResponse) => {
-                if (error.status == 401) {
-                    this.alertService.error('Email does not exist or is already taken.');
-                }
-                else if (error.status == 404) {
-                    this.alertService.error(error.error);
-                }
-                else if (error.status == 500) {
+                if (error.status == 500) {
                     this.alertService.error('We are having issues with our server currently please try again later.');
                 }
                 else {
-                    console.log(error);
+                    this.alertService.error(error.error);
                 }
             });
     }

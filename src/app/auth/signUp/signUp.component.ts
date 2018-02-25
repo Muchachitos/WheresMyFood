@@ -4,8 +4,8 @@ import { FormGroup, FormControl, Validators, AbstractControl } from "@angular/fo
 import { EmailValidator } from "@angular/forms/src/directives/validators";
 import { AuthService } from "../auth.service";
 import { AlertService } from "../../shared/services/alert.service";
-import { SignalRService } from "../../shared/services/signalR.service";
 import { Subscription, Observer } from "rxjs";
+import { NotificationHubService } from "../../shared/services/hubs/notification-hub.service";
 
 @Component({
     selector: 'app-signUp',
@@ -19,7 +19,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     constructor(private router: Router,
         private authService: AuthService,
         private alertService: AlertService,
-        private signalRService: SignalRService) { }
+        private notificationHubService: NotificationHubService) { }
 
     ngOnInit(): void {
         this.signupForm = new FormGroup({
@@ -33,7 +33,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
             });
 
         this.userRegisteredSubscription =
-            this.signalRService
+            this.notificationHubService
                 .onUserRegistered()
                 .subscribe((userRegistered: boolean) => {
                     if (userRegistered) {

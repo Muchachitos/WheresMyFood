@@ -14,7 +14,7 @@ export class MealsLocalStorageService implements OnDestroy {
         this.mealList = new Subject();
     }
 
-    public markMealOrdered(mealId: number) {
+    public markMealOrdered(mealId: string) {
         this.internalList
             .forEach(m => {
                 m.array.forEach(element => {
@@ -30,7 +30,7 @@ export class MealsLocalStorageService implements OnDestroy {
         this.mealList.next(this.internalList.find(x => x.onCurrentPage).array);
     }
 
-    public unmarkMealOrdered(mealId: number) {
+    public unmarkMealOrdered(mealId: string) {
         this.internalList.forEach(m => {
             m.array.forEach(element => {
                 element.isOrdered = false;
