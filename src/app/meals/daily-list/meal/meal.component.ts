@@ -79,6 +79,9 @@ export class MealComponent {
     }
 
     cancel(item: MealModel) {
-        this.ordersService.cancel({ mealId: item.id, userId: 1 });
+        this.ordersService.cancelByMeal(item.id)
+            .subscribe(
+                () => { },
+                (response: HttpErrorResponse) => { this.alertService.error(response.error); });
     }
 }

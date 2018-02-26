@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { MealsLocalStorageService } from "../meals/daily-list/meals-local-storage.service";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { AppConfig } from "../app.config";
-import { OrderCreatedModel } from "./order/order-created.model";
+import { OrderModel } from "./order/order.model";
 import { AlertService } from "../shared/services/alert.service";
 import { NotificationHubService } from "../shared/services/hubs/notification-hub.service";
 
@@ -14,9 +14,14 @@ export class OrdersService {
         private notificationHubService: NotificationHubService,
         private alertService: AlertService) {
 
-        this.notificationHubService.onOrderCreated().subscribe((order: OrderCreatedModel) => {
+        this.notificationHubService.onOrderCreated().subscribe((order: OrderModel) => {
             this.mealStorageService.markMealOrdered(order.mealId);
             this.alertService.success('Meal ordered successfully!');
+        });
+
+        this.notificationHubService.onOrderCanceled().subscribe((order: OrderModel) => {
+            this.mealStorageService.unmarkMealOrdered(order.mealId);
+            this.alertService.info('Meal canceled!');
         });
     }
 
@@ -25,7 +30,13 @@ export class OrdersService {
             .post(`${AppConfig.apiUrl}/orders`, { id: obj.mealId, userIdToBeOrdered: obj.userId });
     }
 
-    public cancel(obj: { mealId: any, userId?: any }) {
-        this.mealStorageService.unmarkMealOrdered(obj.mealId);
+    public cancelByMeal(mealId: any) {
+        return this.httpClient
+            .post(`${AppConfig.apiUrl}/orders/meal`, { mealId: mealId });
+    }
+
+    public cancel(orderId: any) {
+        return this.httpClient
+            .post(`${AppConfig.apiUrl}/orders/id`, { id: orderId });
     }
 }

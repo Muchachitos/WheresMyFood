@@ -4,17 +4,19 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../../auth/auth.service';
 import { AppConfig } from '../../../app.config';
-import { OrderCreatedModel } from '../../../orders/order/order-created.model';
+import { OrderModel } from '../../../orders/order/order.model';
 
 @Injectable()
 export class NotificationHubService {
     private userRegistered: Subject<boolean>;
-    private orderCreated: Subject<OrderCreatedModel>;
+    private orderCreated: Subject<OrderModel>;
+    private orderCanceled: Subject<OrderModel>;
     private hubConnection: HubConnection;
 
     constructor(private authService: AuthService) {
         this.userRegistered = new Subject();
         this.orderCreated = new Subject();
+        this.orderCanceled = new Subject();
         this.hubConnection = new HubConnection(`${AppConfig.apiUrl}/notifyHub`);
 
         this.authService.onUserLoggedIn().subscribe(() => {
@@ -31,8 +33,12 @@ export class NotificationHubService {
         return this.userRegistered.asObservable();
     }
 
-    public onOrderCreated(): Observable<OrderCreatedModel> {
+    public onOrderCreated(): Observable<OrderModel> {
         return this.orderCreated.asObservable();
+    }
+
+    public onOrderCanceled(): Observable<OrderModel> {
+        return this.orderCanceled.asObservable();
     }
 
     private registerServerEvents(): void {
@@ -40,8 +46,12 @@ export class NotificationHubService {
             this.userRegistered.next(isRegistered);
         });
 
-        this.hubConnection.on('OrderCreated', (order: OrderCreatedModel) => {
+        this.hubConnection.on('OrderCreated', (order: OrderModel) => {
             this.orderCreated.next(order);
+        });
+
+        this.hubConnection.on('OrderCanceled', (order: OrderModel) => {
+            this.orderCanceled.next(order);
         });
 
 
