@@ -6,6 +6,7 @@ import { OrderModel } from "./order/order.model";
 import { AlertService } from "../shared/services/alert.service";
 import { NotificationHubService } from "../shared/services/hubs/notification-hub.service";
 import { AuthService } from "../auth/auth.service";
+import { OrderCreatedModel } from "./order/order-created.model";
 
 @Injectable()
 export class OrdersService {
@@ -18,10 +19,15 @@ export class OrdersService {
 
         this.notificationHubService
             .onOrderCreated()
-            .subscribe((order: OrderModel) => {
+            .subscribe((order: OrderCreatedModel) => {
                 let isCurrentUser = this.authService.getCurrentUserId() == order.userId;
                 if (isCurrentUser) {
                     this.alertService.success('Order created successfully!');
+                    if (order.attemptsLeft == 0) {
+                        this.alertService.info(`You have not attempts left. If you cancel this order you will not be able to order again today.`);
+                    } else {
+                        this.alertService.info(`You have ${order.attemptsLeft} attempts left in case you change your mind.`);
+                    }
                 }
                 this.mealStorageService.markMealOrdered(order.mealId, isCurrentUser);
             });

@@ -5,11 +5,12 @@ import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../../auth/auth.service';
 import { AppConfig } from '../../../app.config';
 import { OrderModel } from '../../../orders/order/order.model';
+import { OrderCreatedModel } from '../../../orders/order/order-created.model';
 
 @Injectable()
 export class NotificationHubService {
     private userRegistered: Subject<boolean>;
-    private orderCreated: Subject<OrderModel>;
+    private orderCreated: Subject<OrderCreatedModel>;
     private orderCanceled: Subject<OrderModel>;
     private hubConnection: HubConnection;
 
@@ -34,7 +35,7 @@ export class NotificationHubService {
         return this.userRegistered.asObservable();
     }
 
-    public onOrderCreated(): Observable<OrderModel> {
+    public onOrderCreated(): Observable<OrderCreatedModel> {
         return this.orderCreated.asObservable();
     }
 
@@ -47,7 +48,7 @@ export class NotificationHubService {
             this.userRegistered.next(isRegistered);
         });
 
-        this.hubConnection.on('OrderCreated', (order: OrderModel) => {
+        this.hubConnection.on('OrderCreated', (order: OrderCreatedModel) => {
             this.orderCreated.next(order);
         });
 
