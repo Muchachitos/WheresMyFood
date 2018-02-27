@@ -17,6 +17,11 @@ export class AuthService {
         return localStorage.getItem('currentUser') != null;
     }
 
+    getCurrentUserId(): string {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        return currentUser != null ? currentUser.id : null;
+    }
+
     getToken() {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         return currentUser != null ? JSON.parse(currentUser.token).auth_token : null;
@@ -26,7 +31,7 @@ export class AuthService {
         return this
             .httpClient
             .post(`${AppConfig.apiUrl}/auth/authenticate`, { email: email, password: password }, { observe: 'response' })
-            .map((response: HttpResponse<{ id: number, firstName: string, lastName: string, email: string, token: string }>) => {
+            .map((response: HttpResponse<{ id: string, firstName: string, lastName: string, email: string, token: string }>) => {
                 if (response && response.body && response.body.token) {
                     localStorage.setItem('currentUser', JSON.stringify(response.body));
                     this.userSubject.next({ firstName: response.body.firstName, lastName: response.body.lastName, email: response.body.email });

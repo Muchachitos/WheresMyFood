@@ -5,6 +5,7 @@ import { AppConfig } from "../app.config";
 import { OrderModel } from "./order/order.model";
 import { AlertService } from "../shared/services/alert.service";
 import { NotificationHubService } from "../shared/services/hubs/notification-hub.service";
+import { AuthService } from "../auth/auth.service";
 
 @Injectable()
 export class OrdersService {
@@ -12,17 +13,28 @@ export class OrdersService {
         private httpClient: HttpClient,
         private mealStorageService: MealsLocalStorageService,
         private notificationHubService: NotificationHubService,
-        private alertService: AlertService) {
+        private alertService: AlertService,
+        private authService: AuthService) {
 
-        this.notificationHubService.onOrderCreated().subscribe((order: OrderModel) => {
-            this.mealStorageService.markMealOrdered(order.mealId);
-            this.alertService.success('Meal ordered successfully!');
-        });
+        this.notificationHubService
+            .onOrderCreated()
+            .subscribe((order: OrderModel) => {
+                let isCurrentUser = this.authService.getCurrentUserId() == order.userId;
+                if (isCurrentUser) {
+                    this.alertService.success('Order created successfully!');
+                }
+                this.mealStorageService.markMealOrdered(order.mealId, isCurrentUser);
+            });
 
-        this.notificationHubService.onOrderCanceled().subscribe((order: OrderModel) => {
-            this.mealStorageService.unmarkMealOrdered(order.mealId);
-            this.alertService.info('Meal canceled!');
-        });
+        this.notificationHubService
+            .onOrderCanceled()
+            .subscribe((order: OrderModel) => {
+                let isCurrentUser = this.authService.getCurrentUserId() == order.userId;
+                if (isCurrentUser) {
+                    this.alertService.info('Order canceled!');
+                }
+                this.mealStorageService.unmarkMealOrdered(order.mealId, isCurrentUser);
+            });
     }
 
     public order(obj: { mealId: any, userId?: any }) {

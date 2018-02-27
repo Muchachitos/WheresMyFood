@@ -20,6 +20,7 @@ export class NotificationHubService {
         this.hubConnection = new HubConnection(`${AppConfig.apiUrl}/notifyHub`);
 
         this.authService.onUserLoggedIn().subscribe(() => {
+            this.hubConnection.stop();
             this.hubConnection = new HubConnection(`${AppConfig.apiUrl}/notifyHub?token=${authService.getToken()}`);
             this.registerServerEvents();
             this.startConnection();

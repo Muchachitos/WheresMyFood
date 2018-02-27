@@ -14,12 +14,14 @@ export class MealsLocalStorageService implements OnDestroy {
         this.mealList = new Subject();
     }
 
-    public markMealOrdered(mealId: string) {
+    public markMealOrdered(mealId: string, isCurrentUser: boolean) {
         this.internalList
             .forEach(m => {
                 m.array.forEach(element => {
                     if (element.id == mealId) {
-                        element.isOrdered = true;
+                        if (isCurrentUser) {
+                            element.isOrdered = true;
+                        }
                         element.numberOfOrders++;
                     }
                     else {
@@ -30,10 +32,12 @@ export class MealsLocalStorageService implements OnDestroy {
         this.mealList.next(this.internalList.find(x => x.onCurrentPage).array);
     }
 
-    public unmarkMealOrdered(mealId: string) {
+    public unmarkMealOrdered(mealId: string, isCurrentUser: boolean) {
         this.internalList.forEach(m => {
             m.array.forEach(element => {
-                element.isOrdered = false;
+                if (isCurrentUser) {
+                    element.isOrdered = false;
+                }
                 if (mealId == element.id) {
                     element.numberOfOrders--;
                 }
