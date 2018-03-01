@@ -1,5 +1,5 @@
 import { OrderModel } from "./order.model";
 
-export class OrderCreatedModel extends OrderModel {
+export class OrderAttemptsModel extends OrderModel {
     public attemptsLeft: number;
 }

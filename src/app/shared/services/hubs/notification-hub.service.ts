@@ -5,19 +5,21 @@ import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../../auth/auth.service';
 import { AppConfig } from '../../../app.config';
 import { OrderModel } from '../../../orders/order/order.model';
-import { OrderCreatedModel } from '../../../orders/order/order-created.model';
+import { OrderAttemptsModel } from '../../../orders/order/order-attempts.model';
 
 @Injectable()
 export class NotificationHubService {
     private userRegistered: Subject<boolean>;
-    private orderCreated: Subject<OrderCreatedModel>;
+    private orderCreated: Subject<OrderModel>;
     private orderCanceled: Subject<OrderModel>;
+    private orderedAgain: Subject<OrderAttemptsModel>;
     private hubConnection: HubConnection;
 
     constructor(private authService: AuthService) {
         this.userRegistered = new Subject();
         this.orderCreated = new Subject();
         this.orderCanceled = new Subject();
+        this.orderedAgain = new Subject();
         this.hubConnection = new HubConnection(`${AppConfig.apiUrl}/notifyHub`);
 
         this.authService.onUserLoggedIn().subscribe(() => {
@@ -35,7 +37,7 @@ export class NotificationHubService {
         return this.userRegistered.asObservable();
     }
 
-    public onOrderCreated(): Observable<OrderCreatedModel> {
+    public onOrderCreated(): Observable<OrderModel> {
         return this.orderCreated.asObservable();
     }
 
@@ -43,17 +45,25 @@ export class NotificationHubService {
         return this.orderCanceled.asObservable();
     }
 
+    public onOrderedAgain(): Observable<OrderAttemptsModel> {
+        return this.orderedAgain.asObservable();
+    }
+
     private registerServerEvents(): void {
         this.hubConnection.on('UserCreated', (isRegistered: boolean) => {
             this.userRegistered.next(isRegistered);
         });
 
-        this.hubConnection.on('OrderCreated', (order: OrderCreatedModel) => {
+        this.hubConnection.on('OrderCreated', (order: OrderModel) => {
             this.orderCreated.next(order);
         });
 
         this.hubConnection.on('OrderCanceled', (order: OrderModel) => {
             this.orderCanceled.next(order);
+        });
+
+        this.hubConnection.on('OrderedAgain', (order: OrderAttemptsModel) => {
+            this.orderedAgain.next(order);
         });
 
 

@@ -25,7 +25,9 @@ export class MealsLocalStorageService implements OnDestroy {
                         element.numberOfOrders++;
                     }
                     else {
-                        element.isOrdered = false;
+                        if (isCurrentUser) {
+                            element.isOrdered = false;
+                        }
                     }
                 });
             });

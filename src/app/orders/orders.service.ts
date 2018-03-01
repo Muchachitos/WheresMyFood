@@ -6,7 +6,7 @@ import { OrderModel } from "./order/order.model";
 import { AlertService } from "../shared/services/alert.service";
 import { NotificationHubService } from "../shared/services/hubs/notification-hub.service";
 import { AuthService } from "../auth/auth.service";
-import { OrderCreatedModel } from "./order/order-created.model";
+import { OrderAttemptsModel } from "./order/order-attempts.model";
 
 @Injectable()
 export class OrdersService {
@@ -19,15 +19,10 @@ export class OrdersService {
 
         this.notificationHubService
             .onOrderCreated()
-            .subscribe((order: OrderCreatedModel) => {
+            .subscribe((order: OrderModel) => {
                 let isCurrentUser = this.authService.getCurrentUserId() == order.userId;
                 if (isCurrentUser) {
                     this.alertService.success('Order created successfully!');
-                    if (order.attemptsLeft == 0) {
-                        this.alertService.info(`You have not attempts left. If you cancel this order you will not be able to order again today.`);
-                    } else {
-                        this.alertService.info(`You have ${order.attemptsLeft} attempts left in case you change your mind.`);
-                    }
                 }
                 this.mealStorageService.markMealOrdered(order.mealId, isCurrentUser);
             });
@@ -41,16 +36,30 @@ export class OrdersService {
                 }
                 this.mealStorageService.unmarkMealOrdered(order.mealId, isCurrentUser);
             });
+
+        this.notificationHubService
+            .onOrderedAgain()
+            .subscribe((order: OrderAttemptsModel) => {
+                let isCurrentUser = this.authService.getCurrentUserId() == order.userId;
+                if (isCurrentUser) {
+                    if (order.attemptsLeft <= 0) {
+                        this.alertService.success(`Order succeeded! You have no atttempts left.`);
+                    } else {
+                        this.alertService.success(`Order succeeded! You have ${order.attemptsLeft} attempts left in case you change your mind.`);
+                    }
+                }
+                this.mealStorageService.markMealOrdered(order.mealId, isCurrentUser);
+            });
     }
 
     public order(obj: { mealId: any, userId?: any }) {
         return this.httpClient
-            .post(`${AppConfig.apiUrl}/orders`, { id: obj.mealId, userIdToBeOrdered: obj.userId });
+            .post(`${AppConfig.apiUrl}/orders`, { mealId: obj.mealId, userIdMadeChange: obj.userId });
     }
 
     public cancelByMeal(mealId: any) {
         return this.httpClient
-            .post(`${AppConfig.apiUrl}/orders/meal`, { mealId: mealId });
+            .post(`${AppConfig.apiUrl}/orders/cancel`, {});
     }
 
     public cancel(orderId: any) {
