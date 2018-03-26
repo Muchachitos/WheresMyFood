@@ -58,7 +58,7 @@ export class NotificationHubService {
             this.orderCreated.next(order);
         });
 
-        this.hubConnection.on('OrderCanceled', (order: OrderModel) => {
+        this.hubConnection.on('OrderCancelled', (order: OrderModel) => {
             this.orderCanceled.next(order);
         });
 
